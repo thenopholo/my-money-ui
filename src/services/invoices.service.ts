@@ -1,6 +1,6 @@
-import { del, get, post } from "./client.ts";
-import type { CloseMonthRequest } from "../types/api.ts";
-import type { Invoice } from "../types/models.ts";
+import { del, get, post } from "./http-client.ts";
+import type { CloseMonthRequest } from "../models/dtos.ts";
+import type { Invoice } from "../models/entities.ts";
 
 export function closeMonth(cardId: string, data: CloseMonthRequest): Promise<Invoice> {
   return post<Invoice>(`/api/credit-cards/${cardId}/invoices/close-month`, data);

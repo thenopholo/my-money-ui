@@ -1,1 +1,33 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Kode Mono", monospace;
+
+  /* Background */
+  --color-background: #0b0b0f;
+  --color-surface: #14141a;
+  --color-surface-hover: #1c1c24;
+  --color-surface-light: #23232e;
+
+  /* Primary / Green */
+  --color-primary: #22c55e;
+  --color-primary-hover: #16a34a;
+  --color-primary-dim: #22c55e33;
+
+  /* Danger / Red */
+  --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-danger-dim: #ef444433;
+
+  /* Text */
+  --color-text-primary: #f1f1f1;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #52525b;
+
+  /* Income / Expense */
+  --color-income: #22c55e;
+  --color-expense: #ef4444;
+
+  /* Border */
+  --color-border: #27272a;
+}

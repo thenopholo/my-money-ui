@@ -1,6 +1,6 @@
-import { del, get, post, put } from "./client.ts";
-import type { CreatePlannedExpenseRequest, UpdatePlannedExpenseRequest } from "../types/api.ts";
-import type { PlannedExpense } from "../types/models.ts";
+import { del, get, post, put } from "./http-client.ts";
+import type { CreatePlannedExpenseRequest, UpdatePlannedExpenseRequest } from "../models/dtos.ts";
+import type { PlannedExpense } from "../models/entities.ts";
 
 export function createPlannedExpense(data: CreatePlannedExpenseRequest): Promise<PlannedExpense> {
   return post<PlannedExpense>("/api/planned-expenses", data);

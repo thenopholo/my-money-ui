@@ -1,6 +1,6 @@
-import { del, get, post, put } from "./client.ts";
-import type { CreateCreditCardRequest, UpdateCreditCardRequest } from "../types/api.ts";
-import type { CreditCard } from "../types/models.ts";
+import { del, get, post, put } from "./http-client.ts";
+import type { CreateCreditCardRequest, UpdateCreditCardRequest } from "../models/dtos.ts";
+import type { CreditCard } from "../models/entities.ts";
 
 export function createCreditCard(data: CreateCreditCardRequest): Promise<CreditCard> {
   return post<CreditCard>("/api/credit-cards", data);

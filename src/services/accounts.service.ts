@@ -1,6 +1,6 @@
-import { del, get, post, put } from "./client.ts";
-import type { CreateAccountRequest, UpdateAccountRequest } from "../types/api.ts";
-import type { BankAccount } from "../types/models.ts";
+import { del, get, post, put } from "./http-client.ts";
+import type { CreateAccountRequest, UpdateAccountRequest } from "../models/dtos.ts";
+import type { BankAccount } from "../models/entities.ts";
 
 export function createAccount(data: CreateAccountRequest): Promise<BankAccount> {
   return post<BankAccount>("/api/accounts", data);

@@ -1,11 +1,11 @@
-import { del, get, post, put } from "./client.ts";
+import { del, get, post, put } from "./http-client.ts";
 import type {
   CreatePlannedTransactionRequest,
   CreateTransactionRequest,
   PayInvoiceRequest,
   UpdateTransactionRequest,
-} from "../types/api.ts";
-import type { Transaction } from "../types/models.ts";
+} from "../models/dtos.ts";
+import type { Transaction } from "../models/entities.ts";
 
 export function createTransaction(data: CreateTransactionRequest): Promise<Transaction> {
   return post<Transaction>("/api/transactions", data);

@@ -1,6 +1,6 @@
-import { del, get, post, put } from "./client.ts";
-import type { CreateCategoryRequest, UpdateCategoryRequest } from "../types/api.ts";
-import type { Category } from "../types/models.ts";
+import { del, get, post, put } from "./http-client.ts";
+import type { CreateCategoryRequest, UpdateCategoryRequest } from "../models/dtos.ts";
+import type { Category } from "../models/entities.ts";
 
 export function createCategory(data: CreateCategoryRequest): Promise<Category> {
   return post<Category>("/api/categories", data);

@@ -1,10 +1,10 @@
-import { post } from "./client.ts";
+import { post } from "./http-client.ts";
 import type {
   LoginRequest,
   LoginResponse,
   RegisterRequest,
   RegisterResponse,
-} from "../types/api.ts";
+} from "../models/dtos.ts";
 
 export function register(data: RegisterRequest): Promise<RegisterResponse> {
   return post<RegisterResponse>("/auth/register", data, false);
