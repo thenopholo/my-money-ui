@@ -28,3 +28,4 @@ dist-ssr
 
 # AI Instructions
 .claude
+.cursor
