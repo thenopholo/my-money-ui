@@ -26,7 +26,7 @@ function IconPickerItem({
       className={`flex flex-col items-center gap-1 rounded-lg p-2 transition-all ${
         selected
           ? "bg-primary-dim border border-primary"
-          : "hover:bg-surface-light border border-transparent"
+          : "hover:bg-white/5 border border-transparent"
       }`}
       title={label}
     >
@@ -89,8 +89,8 @@ export function CategoryFormModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="rounded-xl bg-surface border border-border p-6 w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="rounded-2xl glass-strong p-6 w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
         <h2 className="text-lg font-semibold mb-4">
           {isEdit ? "Editar Categoria" : "Nova Categoria"}
         </h2>
@@ -107,7 +107,7 @@ export function CategoryFormModal({
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary/50"
               placeholder="Ex: Alimentação, Salário, Transporte"
             />
           </div>
@@ -122,7 +122,7 @@ export function CategoryFormModal({
                 className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium flex items-center justify-center gap-2 transition-colors ${
                   categoryType === "income"
                     ? "bg-income/20 text-income border border-income/50"
-                    : "bg-surface-light text-text-secondary border border-border"
+                    : "bg-white/5 text-text-secondary border border-white/10"
                 }`}
               >
                 <TrendingUp className="h-4 w-4" />
@@ -134,7 +134,7 @@ export function CategoryFormModal({
                 className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium flex items-center justify-center gap-2 transition-colors ${
                   categoryType === "expense"
                     ? "bg-expense/20 text-expense border border-expense/50"
-                    : "bg-surface-light text-text-secondary border border-border"
+                    : "bg-white/5 text-text-secondary border border-white/10"
                 }`}
               >
                 <TrendingDown className="h-4 w-4" />
@@ -183,7 +183,7 @@ export function CategoryFormModal({
           {/* Preview */}
           <div>
             <label className="block text-sm text-text-secondary mb-1">Preview</label>
-            <div className="rounded-lg bg-surface-light border border-border p-3">
+            <div className="rounded-lg bg-white/5 border border-white/10 p-3">
               <CategoryBadge
                 category={{
                   Name: name || "Categoria",
@@ -202,7 +202,7 @@ export function CategoryFormModal({
               type="button"
               onClick={onClose}
               disabled={saving}
-              className="rounded-lg border border-border px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light transition-colors disabled:opacity-50"
+              className="rounded-lg border border-white/10 px-4 py-2.5 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
             >
               Cancelar
             </button>

@@ -78,7 +78,7 @@ export function DashboardPage() {
       {/* Row 2: Cartões de Crédito + Despesas por Categoria */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Cartões de Crédito */}
-        <section className="rounded-xl bg-surface border border-border p-6">
+        <section className="rounded-2xl glass shadow-lg p-6">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <CreditCard className="h-5 w-5 text-primary" />
             Seus Cartões
@@ -87,7 +87,7 @@ export function DashboardPage() {
             cards={creditCards}
             spentByCard={spentByCard}
           />
-          <div className="border-t border-border mt-4 pt-3 text-center">
+          <div className="border-t border-white/10 mt-4 pt-3 text-center">
             <Link
               to="/credit-cards"
               className="text-sm text-accent hover:underline uppercase tracking-wide"
@@ -98,13 +98,13 @@ export function DashboardPage() {
         </section>
 
         {/* Despesas por Categoria — Donut */}
-        <section className="rounded-xl bg-surface border border-border p-6">
+        <section className="rounded-2xl glass shadow-lg p-6">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <PieChart className="h-5 w-5 text-primary" />
             Despesas por categoria
           </h2>
           <SpendingPieChart data={cardSpendingByCategory} />
-          <div className="border-t border-border mt-4 pt-3 text-center">
+          <div className="border-t border-white/10 mt-4 pt-3 text-center">
             <Link
               to="/categories"
               className="text-sm text-accent hover:underline uppercase tracking-wide"
@@ -118,7 +118,7 @@ export function DashboardPage() {
       {/* Row 3: Minhas Contas + Calendário */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Minhas Contas */}
-        <section className="rounded-xl bg-surface border border-border p-6">
+        <section className="rounded-2xl glass shadow-lg p-6">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Wallet className="h-5 w-5 text-primary" />
             Minhas contas
@@ -138,7 +138,7 @@ export function DashboardPage() {
               ))}
             </div>
           )}
-          <div className="border-t border-border mt-4 pt-3 text-center">
+          <div className="border-t border-white/10 mt-4 pt-3 text-center">
             <Link
               to="/accounts"
               className="text-sm text-accent hover:underline uppercase tracking-wide"
@@ -149,7 +149,7 @@ export function DashboardPage() {
         </section>
 
         {/* Calendário */}
-        <section className="rounded-xl bg-surface border border-border p-6">
+        <section className="rounded-2xl glass shadow-lg p-6">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Calendar className="h-5 w-5 text-primary" />
             Calendário
@@ -158,7 +158,7 @@ export function DashboardPage() {
             transactions={allTransactions}
             creditCardTransactions={allCreditCardTransactions}
           />
-          <div className="border-t border-border mt-4 pt-3 text-center">
+          <div className="border-t border-white/10 mt-4 pt-3 text-center">
             <Link
               to="/transactions"
               className="text-sm text-accent hover:underline uppercase tracking-wide"
@@ -170,7 +170,7 @@ export function DashboardPage() {
       </div>
 
       {/* Row 4: Frequência de Gastos — Full width */}
-      <section className="rounded-xl bg-surface border border-border p-6">
+      <section className="rounded-2xl glass shadow-lg p-6">
         <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-primary" />
           Frequência de gastos
@@ -179,7 +179,7 @@ export function DashboardPage() {
           transactions={allTransactions}
           creditCardTransactions={allCreditCardTransactions}
         />
-        <div className="border-t border-border mt-4 pt-3 text-center">
+        <div className="border-t border-white/10 mt-4 pt-3 text-center">
           <Link
             to="/transactions"
             className="text-sm text-accent hover:underline uppercase tracking-wide"

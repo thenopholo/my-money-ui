@@ -88,11 +88,11 @@ export function AccountsPage() {
 
       {/* Error state */}
       {error && (
-        <div className="rounded-xl bg-surface border border-danger/50 p-4 flex items-center justify-between">
+        <div className="rounded-xl glass border border-danger/50 p-4 flex items-center justify-between">
           <p className="text-sm text-danger">{error}</p>
           <button
             onClick={loadAccounts}
-            className="rounded-lg border border-border px-3 py-1.5 text-sm text-text-secondary hover:bg-surface-light transition-colors flex items-center gap-2"
+            className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-text-secondary hover:bg-white/5 transition-colors flex items-center gap-2"
           >
             <RefreshCw className="h-3.5 w-3.5" />
             Tentar novamente
@@ -102,7 +102,7 @@ export function AccountsPage() {
 
       {/* Empty state */}
       {!error && accounts.length === 0 && (
-        <div className="rounded-xl bg-surface border border-border p-12 flex flex-col items-center justify-center text-center">
+        <div className="rounded-xl glass p-12 shadow-lg flex flex-col items-center justify-center text-center">
           <Wallet className="h-12 w-12 text-text-muted mb-4" />
           <p className="text-text-muted text-sm">
             Nenhuma conta cadastrada. Crie sua primeira conta para começar!
@@ -116,7 +116,7 @@ export function AccountsPage() {
           {accounts.map((account) => (
             <div
               key={account.ID}
-              className="rounded-xl bg-surface border border-border p-6 flex flex-col gap-4"
+              className="rounded-xl glass p-6 shadow-lg flex flex-col gap-4"
             >
               <div className="flex items-start justify-between">
                 <div className="min-w-0 flex-1">
@@ -126,14 +126,14 @@ export function AccountsPage() {
                 <div className="flex items-center gap-1 ml-2 shrink-0">
                   <button
                     onClick={() => openEdit(account)}
-                    className="rounded-lg p-2 text-text-muted hover:text-primary hover:bg-surface-light transition-colors"
+                    className="rounded-lg p-2 text-text-muted hover:text-primary hover:bg-white/5 transition-colors"
                     title="Editar"
                   >
                     <Pencil className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => setDeleteTarget(account)}
-                    className="rounded-lg p-2 text-text-muted hover:text-danger hover:bg-surface-light transition-colors"
+                    className="rounded-lg p-2 text-text-muted hover:text-danger hover:bg-white/5 transition-colors"
                     title="Excluir"
                   >
                     <Trash2 className="h-4 w-4" />

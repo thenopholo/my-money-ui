@@ -10,7 +10,7 @@ export function SummaryCard({
   color: string;
 }) {
   return (
-    <div className="rounded-xl bg-surface border border-border p-5">
+    <div className="rounded-xl glass p-5 shadow-lg">
       <div className="flex items-center justify-between mb-3">
         <span className="text-sm text-text-secondary">{title}</span>
         <span className={color}>{icon}</span>

@@ -88,11 +88,11 @@ export function CreditCardsPage() {
 
       {/* Error state */}
       {error && (
-        <div className="rounded-xl bg-surface border border-danger/50 p-4 flex items-center justify-between">
+        <div className="rounded-xl glass border border-danger/50 p-4 flex items-center justify-between">
           <p className="text-sm text-danger">{error}</p>
           <button
             onClick={loadCards}
-            className="rounded-lg border border-border px-3 py-1.5 text-sm text-text-secondary hover:bg-surface-light transition-colors flex items-center gap-2"
+            className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-text-secondary hover:bg-white/5 transition-colors flex items-center gap-2"
           >
             <RefreshCw className="h-3.5 w-3.5" />
             Tentar novamente
@@ -102,7 +102,7 @@ export function CreditCardsPage() {
 
       {/* Empty state */}
       {!error && cards.length === 0 && (
-        <div className="rounded-xl bg-surface border border-border p-12 flex flex-col items-center justify-center text-center">
+        <div className="rounded-xl glass p-12 shadow-lg flex flex-col items-center justify-center text-center">
           <CreditCard className="h-12 w-12 text-text-muted mb-4" />
           <p className="text-text-muted text-sm">
             Nenhum cartão cadastrado. Crie seu primeiro cartão para começar!
@@ -116,7 +116,7 @@ export function CreditCardsPage() {
           {cards.map((card) => (
             <div
               key={card.ID}
-              className="rounded-xl bg-surface border border-border p-5 flex flex-col gap-4"
+              className="rounded-xl glass p-5 shadow-lg flex flex-col gap-4"
             >
               <CreditCardVisual card={card} spent={0} />
 
@@ -151,17 +151,17 @@ export function CreditCardsPage() {
                 </p>
               </div>
 
-              <div className="flex items-center gap-1 mt-auto pt-2 border-t border-border">
+              <div className="flex items-center gap-1 mt-auto pt-2 border-t border-white/10">
                 <button
                   onClick={() => openEdit(card)}
-                  className="rounded-lg p-2 text-text-muted hover:text-primary hover:bg-surface-light transition-colors"
+                  className="rounded-lg p-2 text-text-muted hover:text-primary hover:bg-white/5 transition-colors"
                   title="Editar"
                 >
                   <Pencil className="h-4 w-4" />
                 </button>
                 <button
                   onClick={() => setDeleteTarget(card)}
-                  className="rounded-lg p-2 text-text-muted hover:text-danger hover:bg-surface-light transition-colors"
+                  className="rounded-lg p-2 text-text-muted hover:text-danger hover:bg-white/5 transition-colors"
                   title="Excluir"
                 >
                   <Trash2 className="h-4 w-4" />

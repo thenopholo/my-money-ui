@@ -144,14 +144,14 @@ export function SpendingCalendar({
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={goToPrevMonth}
-          className="p-1 rounded-lg hover:bg-surface-hover transition-colors"
+          className="p-1 rounded-lg hover:bg-white/5 transition-colors"
         >
           <ChevronLeft className="h-5 w-5 text-text-secondary" />
         </button>
         <span className="text-sm font-semibold capitalize">{monthLabel}</span>
         <button
           onClick={goToNextMonth}
-          className="p-1 rounded-lg hover:bg-surface-hover transition-colors"
+          className="p-1 rounded-lg hover:bg-white/5 transition-colors"
         >
           <ChevronRight className="h-5 w-5 text-text-secondary" />
         </button>
@@ -170,7 +170,7 @@ export function SpendingCalendar({
       </div>
 
       {/* Grid de dias */}
-      <div className="grid grid-cols-7 gap-px bg-surface-light rounded-lg overflow-hidden">
+      <div className="grid grid-cols-7 gap-px bg-white/5 rounded-lg overflow-hidden">
         {cells.map((cell, i) => {
           const data = dayMap.get(cell.key);
           const badges: { type: "income" | "expense"; value: number }[] = [];
@@ -184,7 +184,7 @@ export function SpendingCalendar({
           return (
             <div
               key={i}
-              className={`bg-surface p-1 min-h-[68px] flex flex-col ${
+              className={`bg-white/[0.03] p-1 min-h-[68px] flex flex-col ${
                 !cell.isCurrentMonth ? "opacity-40" : ""
               }`}
             >

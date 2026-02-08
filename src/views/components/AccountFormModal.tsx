@@ -75,8 +75,8 @@ export function AccountFormModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="rounded-xl bg-surface border border-border p-6 w-full max-w-md mx-4">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="rounded-2xl glass-strong p-6 w-full max-w-md mx-4 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
         <h2 className="text-lg font-semibold mb-4">
           {isEdit ? "Editar Conta" : "Nova Conta"}
         </h2>
@@ -91,7 +91,7 @@ export function AccountFormModal({
               value={accountType}
               onChange={(e) => setAccountType(e.target.value as AccountType)}
               disabled={isEdit}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary disabled:opacity-50"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary/50 disabled:opacity-50"
             >
               <option value="checking">Corrente</option>
               <option value="savings">Poupança</option>
@@ -108,7 +108,7 @@ export function AccountFormModal({
               required
               value={bankName}
               onChange={(e) => setBankName(e.target.value)}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary/50"
               placeholder="Ex: Nubank"
             />
           </div>
@@ -122,7 +122,7 @@ export function AccountFormModal({
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary/50"
               placeholder="Se vazio, usa o nome do banco"
             />
           </div>
@@ -138,7 +138,7 @@ export function AccountFormModal({
               required
               value={balance}
               onChange={(e) => setBalance(e.target.value)}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary/50"
               placeholder="0.00"
             />
           </div>
@@ -150,7 +150,7 @@ export function AccountFormModal({
                 type="checkbox"
                 checked={isActive}
                 onChange={(e) => setIsActive(e.target.checked)}
-                className="h-4 w-4 rounded border-border accent-primary"
+                className="h-4 w-4 rounded border-white/10 accent-primary"
               />
               <label htmlFor="isActive" className="text-sm text-text-secondary">
                 Conta ativa
@@ -167,7 +167,7 @@ export function AccountFormModal({
               type="button"
               onClick={onClose}
               disabled={saving}
-              className="rounded-lg border border-border px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light transition-colors disabled:opacity-50"
+              className="rounded-lg border border-white/10 px-4 py-2.5 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
             >
               Cancelar
             </button>

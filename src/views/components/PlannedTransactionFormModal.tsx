@@ -145,8 +145,8 @@ export function PlannedTransactionFormModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="rounded-xl bg-surface border border-border p-6 w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="rounded-2xl glass-strong p-6 w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
         <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
           <span
             className={`inline-block h-1 w-6 rounded-full ${
@@ -168,7 +168,7 @@ export function PlannedTransactionFormModal({
               required
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
               placeholder={labels.placeholder}
             />
           </div>
@@ -185,7 +185,7 @@ export function PlannedTransactionFormModal({
               required
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
               placeholder="0,00"
             />
           </div>
@@ -201,7 +201,7 @@ export function PlannedTransactionFormModal({
                 value={accountId}
                 onChange={(e) => setAccountId(e.target.value)}
                 disabled={isEdit}
-                className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary disabled:opacity-50"
+                className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary disabled:opacity-50"
               >
                 <option value="">Selecione uma conta</option>
                 {accounts.map((acc) => (
@@ -220,7 +220,7 @@ export function PlannedTransactionFormModal({
                 value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
                 disabled={isEdit}
-                className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary disabled:opacity-50"
+                className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary disabled:opacity-50"
               >
                 <option value="">Selecione uma categoria</option>
                 {categories.map((cat) => (
@@ -246,7 +246,7 @@ export function PlannedTransactionFormModal({
                 required
                 value={dueDay}
                 onChange={(e) => setDueDay(e.target.value)}
-                className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
+                className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
                 placeholder="1–31"
               />
             </div>
@@ -263,7 +263,7 @@ export function PlannedTransactionFormModal({
                     className={`flex-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                       frequency === opt.value
                         ? "bg-primary-dim text-primary border border-primary/50"
-                        : "bg-surface-light text-text-secondary border border-border"
+                        : "bg-white/5 text-text-secondary border border-white/10"
                     }`}
                   >
                     {opt.label}
@@ -284,7 +284,7 @@ export function PlannedTransactionFormModal({
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary"
+                className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary"
               />
             </div>
             <div>
@@ -296,7 +296,7 @@ export function PlannedTransactionFormModal({
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary"
+                className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary"
               />
             </div>
           </div>
@@ -308,7 +308,7 @@ export function PlannedTransactionFormModal({
               type="checkbox"
               checked={isActive}
               onChange={(e) => setIsActive(e.target.checked)}
-              className="h-4 w-4 rounded border-border accent-primary"
+              className="h-4 w-4 rounded border-white/10 accent-primary"
             />
             <label htmlFor="isActive" className="text-sm text-text-secondary">
               {type === "income" ? "Receita ativa" : "Despesa ativa"}
@@ -322,7 +322,7 @@ export function PlannedTransactionFormModal({
               type="button"
               onClick={onClose}
               disabled={saving}
-              className="rounded-lg border border-border px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light transition-colors disabled:opacity-50"
+              className="rounded-lg border border-white/10 px-4 py-2.5 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
             >
               Cancelar
             </button>

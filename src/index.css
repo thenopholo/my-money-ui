@@ -3,11 +3,26 @@
 @theme {
   --font-sans: "Kode Mono", monospace;
 
-  /* Background */
+  /* Background (fallback) */
   --color-background: #0b0b0f;
   --color-surface: #14141a;
   --color-surface-hover: #1c1c24;
   --color-surface-light: #23232e;
+
+  /* Background Gradient Stops */
+  --color-background-start: #0a0a1a;
+  --color-background-mid: #0d1025;
+  --color-background-end: #0f0b1e;
+
+  /* Glass Surfaces */
+  --color-glass: rgba(255, 255, 255, 0.03);
+  --color-glass-hover: rgba(255, 255, 255, 0.06);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-glass-border-light: rgba(255, 255, 255, 0.12);
+
+  /* Sidebar */
+  --spacing-sidebar-expanded: 16rem;
+  --spacing-sidebar-collapsed: 4.5rem;
 
   /* Primary / Green */
   --color-primary: #22c55e;
@@ -38,4 +53,58 @@
 
   /* Warning / Yellow */
   --color-warning: #eab308;
+}
+
+@layer base {
+  body {
+    background: linear-gradient(
+      135deg,
+      #0a0a1a 0%,
+      #0d1025 30%,
+      #12082a 55%,
+      #0a0e1a 80%,
+      #080818 100%
+    );
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .glass-hover:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-active {
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  }
 }

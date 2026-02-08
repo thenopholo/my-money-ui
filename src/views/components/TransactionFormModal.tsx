@@ -106,8 +106,8 @@ export function TransactionFormModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="rounded-xl bg-surface border border-border p-6 w-full max-w-md mx-4">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="rounded-2xl glass-strong p-6 w-full max-w-md mx-4 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
         <h2 className="text-lg font-semibold mb-4">
           {isEdit ? "Editar Transação" : "Nova Transação"}
         </h2>
@@ -122,7 +122,7 @@ export function TransactionFormModal({
               value={transactionType}
               onChange={(e) => handleTypeChange(e.target.value as TransactionType)}
               disabled={isEdit}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary disabled:opacity-50"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary/50 disabled:opacity-50"
             >
               <option value="income">Receita</option>
               <option value="expense">Despesa</option>
@@ -138,7 +138,7 @@ export function TransactionFormModal({
               value={accountId}
               onChange={(e) => setAccountId(e.target.value)}
               disabled={isEdit}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary disabled:opacity-50"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary/50 disabled:opacity-50"
             >
               <option value="">Selecione uma conta</option>
               {accounts.filter((a) => a.IsActive).map((a) => (
@@ -158,7 +158,7 @@ export function TransactionFormModal({
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
               disabled={isEdit}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary disabled:opacity-50"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary/50 disabled:opacity-50"
             >
               <option value="">Selecione uma categoria</option>
               {filteredCategories.map((c) => (
@@ -178,7 +178,7 @@ export function TransactionFormModal({
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary/50"
               placeholder="Ex: PIX recebido, Supermercado..."
             />
           </div>
@@ -195,7 +195,7 @@ export function TransactionFormModal({
               required
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary placeholder-text-muted focus:outline-none focus:border-primary/50"
               placeholder="0.00"
             />
           </div>
@@ -211,7 +211,7 @@ export function TransactionFormModal({
               max={today}
               value={transactionDate}
               onChange={(e) => setTransactionDate(e.target.value)}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary/50"
             />
           </div>
 
@@ -224,7 +224,7 @@ export function TransactionFormModal({
               type="button"
               onClick={onClose}
               disabled={saving}
-              className="rounded-lg border border-border px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light transition-colors disabled:opacity-50"
+              className="rounded-lg border border-white/10 px-4 py-2.5 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
             >
               Cancelar
             </button>

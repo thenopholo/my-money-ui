@@ -76,7 +76,7 @@ export function TransactionsPage() {
           </button>
           <button
             onClick={() => vm.setImportStep("upload")}
-            className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:bg-surface-light transition-colors flex items-center gap-2"
+            className="rounded-lg border border-white/10 px-4 py-2 text-sm text-text-secondary hover:bg-white/5 transition-colors flex items-center gap-2"
           >
             <FileUp className="h-4 w-4" />
             Importar CSV
@@ -86,15 +86,15 @@ export function TransactionsPage() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="rounded-xl bg-surface border border-border p-4">
+        <div className="rounded-xl glass p-4 shadow-lg">
           <p className="text-xs text-text-muted mb-1">Receitas</p>
           <p className="text-lg font-semibold text-income">+ {formatCurrency(vm.totalIncome)}</p>
         </div>
-        <div className="rounded-xl bg-surface border border-border p-4">
+        <div className="rounded-xl glass p-4 shadow-lg">
           <p className="text-xs text-text-muted mb-1">Despesas</p>
           <p className="text-lg font-semibold text-expense">- {formatCurrency(vm.totalExpense)}</p>
         </div>
-        <div className="rounded-xl bg-surface border border-border p-4">
+        <div className="rounded-xl glass p-4 shadow-lg">
           <p className="text-xs text-text-muted mb-1">Saldo</p>
           <p className={`text-lg font-semibold ${vm.totalIncome - vm.totalExpense >= 0 ? "text-income" : "text-expense"}`}>
             {formatCurrency(vm.totalIncome - vm.totalExpense)}
@@ -107,7 +107,7 @@ export function TransactionsPage() {
         <select
           value={vm.selectedAccountId}
           onChange={(e) => vm.setSelectedAccountId(e.target.value)}
-          className="rounded-lg bg-surface-light border border-border px-4 py-2 text-sm text-text-primary focus:outline-none focus:border-primary"
+          className="rounded-lg bg-white/5 border border-white/10 px-4 py-2 text-sm text-text-primary focus:outline-none focus:border-primary/50"
         >
           <option value="">Todas as contas</option>
           {vm.accounts.map((a) => (
@@ -117,7 +117,7 @@ export function TransactionsPage() {
           ))}
         </select>
 
-        <div className="flex rounded-lg border border-border overflow-hidden">
+        <div className="flex rounded-lg border border-white/10 overflow-hidden">
           {(["all", "income", "expense"] as const).map((type) => (
             <button
               key={type}
@@ -125,7 +125,7 @@ export function TransactionsPage() {
               className={`px-4 py-2 text-sm font-medium transition-colors ${
                 vm.filterType === type
                   ? "bg-primary text-background"
-                  : "bg-surface-light text-text-secondary hover:bg-surface"
+                  : "bg-white/5 text-text-secondary hover:bg-white/10"
               }`}
             >
               {type === "all" ? "Todas" : type === "income" ? "Receitas" : "Despesas"}
@@ -169,11 +169,11 @@ export function TransactionsPage() {
 
       {/* Transactions Table */}
       {!vm.loading && vm.filteredTransactions.length > 0 && (
-        <div className="rounded-xl bg-surface border border-border overflow-hidden">
+        <div className="rounded-xl glass overflow-hidden shadow-lg">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-border text-text-muted text-left">
+                <tr className="border-b border-white/10 text-text-muted text-left">
                   <th className="px-4 pb-3 pt-4 font-medium">Descrição</th>
                   <th className="px-4 pb-3 pt-4 font-medium">Valor</th>
                   <th className="px-4 pb-3 pt-4 font-medium">Data</th>
@@ -185,7 +185,7 @@ export function TransactionsPage() {
               </thead>
               <tbody>
                 {vm.filteredTransactions.map((tx) => (
-                  <tr key={tx.ID} className="border-b border-border/50 hover:bg-surface-light transition-colors">
+                  <tr key={tx.ID} className="border-b border-white/10 hover:bg-white/5 transition-colors">
                     <td className="px-4 py-3 text-text-primary">
                       {tx.Description || "Transação"}
                     </td>
@@ -217,14 +217,14 @@ export function TransactionsPage() {
                       <div className="flex items-center justify-end gap-1">
                         <button
                           onClick={() => handleOpenEdit(tx)}
-                          className="rounded-lg p-1.5 text-text-muted hover:text-primary hover:bg-surface-light transition-colors"
+                          className="rounded-lg p-1.5 text-text-muted hover:text-primary hover:bg-white/5 transition-colors"
                           title="Editar"
                         >
                           <Pencil className="h-4 w-4" />
                         </button>
                         <button
                           onClick={() => setDeletingId(tx.ID)}
-                          className="rounded-lg p-1.5 text-text-muted hover:text-danger hover:bg-surface-light transition-colors"
+                          className="rounded-lg p-1.5 text-text-muted hover:text-danger hover:bg-white/5 transition-colors"
                           title="Excluir"
                         >
                           <Trash2 className="h-4 w-4" />

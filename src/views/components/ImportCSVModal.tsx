@@ -74,8 +74,8 @@ export function ImportCSVModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="rounded-xl bg-surface border border-border p-6 w-full max-w-lg mx-4">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="rounded-2xl glass-strong p-6 w-full max-w-lg mx-4 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
         <h2 className="text-lg font-semibold mb-4">Importar Transações via CSV</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -88,7 +88,7 @@ export function ImportCSVModal({
                 className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
                   importType === "bank_account"
                     ? "bg-primary text-background"
-                    : "bg-surface-light border border-border text-text-secondary hover:bg-surface-light"
+                    : "bg-white/5 border border-white/10 text-text-secondary hover:bg-white/5"
                 }`}
               >
                 Extrato Bancário
@@ -99,7 +99,7 @@ export function ImportCSVModal({
                 className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
                   importType === "credit_card"
                     ? "bg-primary text-background"
-                    : "bg-surface-light border border-border text-text-secondary hover:bg-surface-light"
+                    : "bg-white/5 border border-white/10 text-text-secondary hover:bg-white/5"
                 }`}
               >
                 Fatura de Cartão
@@ -115,7 +115,7 @@ export function ImportCSVModal({
               id="importTarget"
               value={targetId}
               onChange={(e) => setTargetId(e.target.value)}
-              className="w-full rounded-lg bg-surface-light border border-border px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary"
+              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary"
             >
               <option value="">
                 {importType === "bank_account" ? "Selecione uma conta" : "Selecione um cartão"}
@@ -132,7 +132,7 @@ export function ImportCSVModal({
             <label className="block text-sm text-text-secondary mb-2">Arquivo CSV</label>
             <div
               className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-colors ${
-                dragOver ? "border-primary bg-primary/5" : "border-border hover:border-primary"
+                dragOver ? "border-primary bg-primary/5" : "border-white/10 hover:border-primary"
               }`}
               onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
               onDragLeave={() => setDragOver(false)}
@@ -180,7 +180,7 @@ export function ImportCSVModal({
               type="button"
               onClick={onClose}
               disabled={importing}
-              className="rounded-lg border border-border px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light transition-colors disabled:opacity-50"
+              className="rounded-lg border border-white/10 px-4 py-2.5 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
             >
               Cancelar
             </button>

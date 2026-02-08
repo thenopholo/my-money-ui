@@ -129,11 +129,11 @@ export function PlannedExpensesPage() {
 
       {/* Error state */}
       {error && (
-        <div className="rounded-xl bg-surface border border-danger/50 p-4 flex items-center justify-between">
+        <div className="rounded-xl glass border border-danger/50 p-4 flex items-center justify-between">
           <p className="text-sm text-danger">{error}</p>
           <button
             onClick={loadData}
-            className="rounded-lg border border-border px-3 py-1.5 text-sm text-text-secondary hover:bg-surface-light transition-colors flex items-center gap-2"
+            className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-text-secondary hover:bg-white/5 transition-colors flex items-center gap-2"
           >
             <RefreshCw className="h-3.5 w-3.5" />
             Tentar novamente
@@ -143,7 +143,7 @@ export function PlannedExpensesPage() {
 
       {/* Summary bar */}
       {!error && expenses.length > 0 && (
-        <div className="rounded-xl bg-surface border border-border p-4 flex items-center justify-between">
+        <div className="rounded-xl glass shadow-lg p-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <DollarSign className="h-5 w-5 text-expense" />
@@ -154,7 +154,7 @@ export function PlannedExpensesPage() {
                 </p>
               </div>
             </div>
-            <div className="h-8 w-px bg-border" />
+            <div className="h-8 w-px bg-white/10" />
             <div>
               <p className="text-xs text-text-muted">Itens Ativos</p>
               <p className="text-lg font-bold">{activeCount}</p>
@@ -177,7 +177,7 @@ export function PlannedExpensesPage() {
                   className={`rounded-lg px-3 py-1.5 text-sm font-medium flex items-center gap-1.5 transition-colors ${
                     frequencyFilter === tab.value
                       ? "bg-primary-dim text-primary"
-                      : "text-text-secondary hover:bg-surface-hover"
+                      : "text-text-secondary hover:bg-white/5"
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5" />
@@ -196,7 +196,7 @@ export function PlannedExpensesPage() {
                 className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
                   activeFilter === tab.value
                     ? "bg-primary-dim text-primary"
-                    : "text-text-secondary hover:bg-surface-hover"
+                    : "text-text-secondary hover:bg-white/5"
                 }`}
               >
                 {tab.label}
@@ -208,7 +208,7 @@ export function PlannedExpensesPage() {
 
       {/* Empty state */}
       {!error && expenses.length === 0 && (
-        <div className="rounded-xl bg-surface border border-border p-12 flex flex-col items-center justify-center text-center">
+        <div className="rounded-xl glass shadow-lg p-12 flex flex-col items-center justify-center text-center">
           <TrendingDown className="h-12 w-12 text-text-muted mb-4" />
           <p className="text-text-muted text-sm">
             Nenhuma despesa planejada cadastrada. Crie sua primeira despesa para começar!
@@ -218,7 +218,7 @@ export function PlannedExpensesPage() {
 
       {/* Filtered empty state */}
       {!error && expenses.length > 0 && filteredExpenses.length === 0 && hasFilters && (
-        <div className="rounded-xl bg-surface border border-border p-12 flex flex-col items-center justify-center text-center">
+        <div className="rounded-xl glass shadow-lg p-12 flex flex-col items-center justify-center text-center">
           <TrendingDown className="h-12 w-12 text-text-muted mb-4" />
           <p className="text-text-muted text-sm">
             Nenhuma despesa planejada encontrada com os filtros selecionados.

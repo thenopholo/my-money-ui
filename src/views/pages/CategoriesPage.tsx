@@ -92,7 +92,7 @@ export function CategoriesPage() {
           className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
             filter === "all"
               ? "bg-primary-dim text-primary"
-              : "text-text-secondary hover:bg-surface-hover"
+              : "text-text-secondary hover:bg-white/5"
           }`}
         >
           Todas ({categories.length})
@@ -102,7 +102,7 @@ export function CategoriesPage() {
           className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors flex items-center gap-1.5 ${
             filter === "income"
               ? "bg-income/20 text-income"
-              : "text-text-secondary hover:bg-surface-hover"
+              : "text-text-secondary hover:bg-white/5"
           }`}
         >
           <TrendingUp className="h-3.5 w-3.5" />
@@ -113,7 +113,7 @@ export function CategoriesPage() {
           className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors flex items-center gap-1.5 ${
             filter === "expense"
               ? "bg-expense/20 text-expense"
-              : "text-text-secondary hover:bg-surface-hover"
+              : "text-text-secondary hover:bg-white/5"
           }`}
         >
           <TrendingDown className="h-3.5 w-3.5" />
@@ -123,11 +123,11 @@ export function CategoriesPage() {
 
       {/* Error state */}
       {error && (
-        <div className="rounded-xl bg-surface border border-danger/50 p-4 flex items-center justify-between">
+        <div className="rounded-xl glass border border-danger/50 p-4 flex items-center justify-between">
           <p className="text-sm text-danger">{error}</p>
           <button
             onClick={loadCategories}
-            className="rounded-lg border border-border px-3 py-1.5 text-sm text-text-secondary hover:bg-surface-light transition-colors flex items-center gap-2"
+            className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-text-secondary hover:bg-white/5 transition-colors flex items-center gap-2"
           >
             <RefreshCw className="h-3.5 w-3.5" />
             Tentar novamente
@@ -137,7 +137,7 @@ export function CategoriesPage() {
 
       {/* Empty state */}
       {!error && filteredCategories.length === 0 && (
-        <div className="rounded-xl bg-surface border border-border p-12 flex flex-col items-center justify-center text-center">
+        <div className="rounded-xl glass p-12 shadow-lg flex flex-col items-center justify-center text-center">
           <Tag className="h-12 w-12 text-text-muted mb-4" />
           <p className="text-text-muted text-sm">
             {filter !== "all"
@@ -153,21 +153,21 @@ export function CategoriesPage() {
           {filteredCategories.map((category) => (
             <div
               key={category.ID}
-              className="rounded-xl bg-surface border border-border p-4 flex flex-col gap-3"
+              className="rounded-xl glass p-4 shadow-lg flex flex-col gap-3"
             >
               <div className="flex items-start justify-between">
                 <CategoryBadge category={category} size="lg" />
                 <div className="flex items-center gap-1 ml-2 shrink-0">
                   <button
                     onClick={() => openEdit(category)}
-                    className="rounded-lg p-2 text-text-muted hover:text-primary hover:bg-surface-light transition-colors"
+                    className="rounded-lg p-2 text-text-muted hover:text-primary hover:bg-white/5 transition-colors"
                     title="Editar"
                   >
                     <Pencil className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => setDeleteTarget(category)}
-                    className="rounded-lg p-2 text-text-muted hover:text-danger hover:bg-surface-light transition-colors"
+                    className="rounded-lg p-2 text-text-muted hover:text-danger hover:bg-white/5 transition-colors"
                     title="Excluir"
                   >
                     <Trash2 className="h-4 w-4" />

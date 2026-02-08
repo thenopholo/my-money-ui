@@ -30,7 +30,7 @@ export function BankAccountCard({
   const typeLabel = accountTypeLabels[account.AccountType] ?? account.AccountType;
 
   return (
-    <div className="border-b border-border pb-4 last:border-b-0 last:pb-0">
+    <div className="border-b border-white/10 pb-4 last:border-b-0 last:pb-0">
       <div className="flex items-center gap-4 py-2">
         {logo ? (
           <img
@@ -39,7 +39,7 @@ export function BankAccountCard({
             className="h-10 w-10 rounded-full object-cover"
           />
         ) : (
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-light">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5">
             <Landmark className="h-5 w-5 text-text-secondary" />
           </div>
         )}

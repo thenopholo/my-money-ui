@@ -39,7 +39,7 @@ export function PlannedTransactionCard({
 
   return (
     <div
-      className={`rounded-xl bg-surface border border-border p-5 flex flex-col gap-3 border-l-4 ${
+      className={`rounded-xl glass p-5 shadow-lg flex flex-col gap-3 border-l-4 ${
         type === "income" ? "border-l-income" : "border-l-expense"
       }`}
     >
@@ -49,14 +49,14 @@ export function PlannedTransactionCard({
         <div className="flex items-center gap-1 ml-2 shrink-0">
           <button
             onClick={onEdit}
-            className="rounded-lg p-2 text-text-muted hover:text-primary hover:bg-surface-light transition-colors"
+            className="rounded-lg p-2 text-text-muted hover:text-primary hover:bg-white/5 transition-colors"
             title="Editar"
           >
             <Pencil className="h-4 w-4" />
           </button>
           <button
             onClick={onDelete}
-            className="rounded-lg p-2 text-text-muted hover:text-danger hover:bg-surface-light transition-colors"
+            className="rounded-lg p-2 text-text-muted hover:text-danger hover:bg-white/5 transition-colors"
             title="Excluir"
           >
             <Trash2 className="h-4 w-4" />
@@ -73,7 +73,7 @@ export function PlannedTransactionCard({
         >
           {formatCurrency(amount)}
         </span>
-        <span className="inline-flex items-center gap-1 rounded-full bg-surface-light px-2.5 py-0.5 text-xs font-medium text-text-secondary">
+        <span className="inline-flex items-center gap-1 rounded-full bg-white/5 px-2.5 py-0.5 text-xs font-medium text-text-secondary">
           <FrequencyIcon className="h-3 w-3" />
           {RECURRENCE_LABELS[frequency]}
         </span>

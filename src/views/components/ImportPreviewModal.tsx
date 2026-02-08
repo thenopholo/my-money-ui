@@ -138,8 +138,8 @@ export function ImportPreviewModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="rounded-xl bg-surface border border-border p-6 w-full max-w-6xl mx-4 max-h-[90vh] flex flex-col">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="rounded-2xl glass-strong p-6 w-full max-w-6xl mx-4 max-h-[90vh] flex flex-col shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
         <div className="mb-4">
           <h2 className="text-lg font-semibold">Revisar Transações Importadas</h2>
           <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-text-muted">
@@ -160,13 +160,13 @@ export function ImportPreviewModal({
         <div className="overflow-auto flex-1 min-h-0">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-border text-text-muted text-left">
+              <tr className="border-b border-white/10 text-text-muted text-left">
                 <th className="pb-3 pr-2">
                   <input
                     type="checkbox"
                     checked={editableTxs.every((tx) => tx.selected)}
                     onChange={toggleAll}
-                    className="h-4 w-4 rounded border-border accent-primary"
+                    className="h-4 w-4 rounded border-white/10 accent-primary"
                   />
                 </th>
                 <th className="pb-3 font-medium">Descrição</th>
@@ -188,13 +188,13 @@ export function ImportPreviewModal({
                 );
 
                 return (
-                  <tr key={i} className="border-b border-border/50 hover:bg-surface-light transition-colors">
+                  <tr key={i} className="border-b border-white/10 hover:bg-white/5 transition-colors">
                     <td className="py-2.5 pr-2">
                       <input
                         type="checkbox"
                         checked={tx.selected}
                         onChange={(e) => updateTx(i, { selected: e.target.checked })}
-                        className="h-4 w-4 rounded border-border accent-primary"
+                        className="h-4 w-4 rounded border-white/10 accent-primary"
                       />
                     </td>
                     <td className="py-2.5 pr-2">
@@ -203,7 +203,7 @@ export function ImportPreviewModal({
                         value={tx.description}
                         onChange={(e) => updateTx(i, { description: e.target.value })}
                         title={tx.original_description}
-                        className="w-full rounded bg-surface-light border border-border px-2 py-1 text-sm text-text-primary focus:outline-none focus:border-primary"
+                        className="w-full rounded bg-white/5 border border-white/10 px-2 py-1 text-sm text-text-primary focus:outline-none focus:border-primary/50"
                       />
                     </td>
                     <td className="py-2.5 pr-2 whitespace-nowrap">
@@ -228,7 +228,7 @@ export function ImportPreviewModal({
                       <select
                         value={getCategoryValue(tx)}
                         onChange={(e) => handleCategoryChange(i, e.target.value)}
-                        className="w-full rounded bg-surface-light border border-border px-2 py-1 text-sm text-text-primary focus:outline-none focus:border-primary"
+                        className="w-full rounded bg-white/5 border border-white/10 px-2 py-1 text-sm text-text-primary focus:outline-none focus:border-primary/50"
                       >
                         <option value="">Selecionar categoria</option>
                         {typeCategories.map((c) => (
@@ -262,7 +262,7 @@ export function ImportPreviewModal({
 
         {error && <p className="text-sm text-danger mt-3">{error}</p>}
 
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
+        <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/10">
           <span className="text-sm text-text-muted">
             {selectedCount} de {editableTxs.length} transações selecionadas
           </span>
@@ -271,7 +271,7 @@ export function ImportPreviewModal({
               type="button"
               onClick={onClose}
               disabled={importing}
-              className="rounded-lg border border-border px-4 py-2.5 text-sm text-text-secondary hover:bg-surface-light transition-colors disabled:opacity-50"
+              className="rounded-lg border border-white/10 px-4 py-2.5 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
             >
               Cancelar
             </button>

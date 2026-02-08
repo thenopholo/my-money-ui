@@ -157,11 +157,11 @@ export function SpendingFrequencyChart({
             <ChevronDown className="h-4 w-4" />
           </button>
           {dropdownOpen && (
-            <div className="absolute right-0 top-full mt-1 rounded-lg bg-surface-light border border-border shadow-lg z-10">
+            <div className="absolute right-0 top-full mt-1 rounded-lg glass-strong shadow-lg z-10">
               {PERIOD_OPTIONS.map((opt) => (
                 <button
                   key={opt.value}
-                  className="block w-full px-4 py-2 text-sm text-left hover:bg-surface-hover whitespace-nowrap"
+                  className="block w-full px-4 py-2 text-sm text-left hover:bg-white/5 whitespace-nowrap"
                   onClick={() => {
                     setPeriod(opt.value);
                     setDropdownOpen(false);
