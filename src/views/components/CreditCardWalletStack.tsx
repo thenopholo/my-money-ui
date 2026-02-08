@@ -21,12 +21,14 @@ export function CreditCardWalletStack({
   const [order, setOrder] = useState<number[]>(() =>
     visibleCards.map((_, i) => i),
   );
+  const [prevCardsLength, setPrevCardsLength] = useState(visibleCards.length);
   const [cardHeight, setCardHeight] = useState(0);
   const measureRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  if (visibleCards.length !== prevCardsLength) {
+    setPrevCardsLength(visibleCards.length);
     setOrder(visibleCards.map((_, i) => i));
-  }, [visibleCards.length]);
+  }
 
   useEffect(() => {
     if (!measureRef.current) return;
