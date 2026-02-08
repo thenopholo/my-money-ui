@@ -1,22 +1,87 @@
 import { useEffect, useState } from "react";
 import { listAccounts } from "../services/accounts.service.ts";
 import { listAccountTransactions } from "../services/transactions.service.ts";
-import type { BankAccount, Transaction } from "../models/entities.ts";
+import { listCreditCards } from "../services/credit-cards.service.ts";
+import { listInvoices } from "../services/invoices.service.ts";
+import { listCreditCardTransactions } from "../services/credit-card-transactions.service.ts";
+import { listCategories } from "../services/categories.service.ts";
+import type {
+  BankAccount,
+  Category,
+  CreditCard,
+  CreditCardTransaction,
+  Transaction,
+} from "../models/entities.ts";
+import type { CategorySpending } from "../views/components/SpendingPieChart.tsx";
 
 export function useDashboardViewModel() {
   const [accounts, setAccounts] = useState<BankAccount[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [creditCards, setCreditCards] = useState<CreditCard[]>([]);
+  const [spentByCard, setSpentByCard] = useState<Record<string, number>>({});
+  const [cardSpendingByCategory, setCardSpendingByCategory] = useState<
+    CategorySpending[]
+  >([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function load() {
       try {
-        const accts = await listAccounts();
+        const [accts, cards, categories] = await Promise.all([
+          listAccounts(),
+          listCreditCards(),
+          listCategories(),
+        ]);
         setAccounts(accts);
+        setCreditCards(cards);
 
         const txPromises = accts.map((a) => listAccountTransactions(a.ID));
         const txArrays = await Promise.all(txPromises);
         setTransactions(txArrays.flat());
+
+        const spent: Record<string, number> = {};
+        const allCardTxs: CreditCardTransaction[] = [];
+
+        const cardPromises = cards.map(async (card) => {
+          try {
+            const [invoices, cardTxs] = await Promise.all([
+              listInvoices(card.ID),
+              listCreditCardTransactions(card.ID),
+            ]);
+            const openInvoice = invoices.find((inv) => inv.Status === "open");
+            spent[card.ID] = openInvoice
+              ? parseFloat(openInvoice.TotalAmount)
+              : 0;
+            allCardTxs.push(...cardTxs);
+          } catch {
+            spent[card.ID] = 0;
+          }
+        });
+        await Promise.all(cardPromises);
+        setSpentByCard(spent);
+
+        const categoryMap = new Map<string, Category>();
+        for (const cat of categories) {
+          categoryMap.set(cat.ID, cat);
+        }
+
+        const byCat = new Map<string, number>();
+        for (const tx of allCardTxs) {
+          const prev = byCat.get(tx.CategoryID) ?? 0;
+          byCat.set(tx.CategoryID, prev + parseFloat(tx.Amount));
+        }
+
+        const spending: CategorySpending[] = [];
+        for (const [catId, amount] of byCat) {
+          const cat = categoryMap.get(catId);
+          spending.push({
+            categoryName: cat?.Name ?? "Sem categoria",
+            amount,
+            color: cat?.Color ?? "",
+          });
+        }
+        spending.sort((a, b) => b.amount - a.amount);
+        setCardSpendingByCategory(spending);
       } catch {
         // silently fail on dashboard load
       } finally {
@@ -63,6 +128,9 @@ export function useDashboardViewModel() {
     monthIncome,
     monthExpense,
     savingsRate,
+    creditCards,
+    spentByCard,
+    cardSpendingByCategory,
     loading,
   };
 }

@@ -1,13 +1,17 @@
 import {
+  CreditCard,
   DollarSign,
   TrendingUp,
   TrendingDown,
   Percent,
+  PieChart,
   Wallet,
 } from "lucide-react";
 import { formatCurrency } from "../../utils/currency.ts";
 import { useDashboardViewModel } from "../../viewmodels/dashboard.viewmodel.ts";
 import { SummaryCard } from "../components/SummaryCard.tsx";
+import { CreditCardWalletStack } from "../components/CreditCardWalletStack.tsx";
+import { SpendingPieChart } from "../components/SpendingPieChart.tsx";
 
 export function DashboardPage() {
   const {
@@ -17,6 +21,9 @@ export function DashboardPage() {
     monthIncome,
     monthExpense,
     savingsRate,
+    creditCards,
+    spentByCard,
+    cardSpendingByCategory,
     loading,
   } = useDashboardViewModel();
 
@@ -60,6 +67,7 @@ export function DashboardPage() {
         />
       </div>
 
+      {/* Row 2: Accounts + Credit Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Accounts */}
         <section className="rounded-xl bg-surface border border-border p-6">
@@ -87,6 +95,38 @@ export function DashboardPage() {
               ))}
             </div>
           )}
+        </section>
+
+        {/* Credit Cards + Pie Chart */}
+        <section className="rounded-xl bg-surface border border-border p-6">
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <CreditCard className="h-5 w-5 text-primary" />
+            Seus Cartões
+          </h2>
+          <div className="flex gap-6 items-start">
+            <div className="flex-1 min-w-0">
+              <CreditCardWalletStack
+                cards={creditCards}
+                spentByCard={spentByCard}
+              />
+            </div>
+            <div className="w-48 shrink-0">
+              <p className="text-xs text-text-muted mb-3 flex items-center gap-1.5">
+                <PieChart className="h-3.5 w-3.5" />
+                Gastos por Categoria
+              </p>
+              <SpendingPieChart data={cardSpendingByCategory} />
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* Row 3: Charts + Recent Transactions */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Charts placeholder */}
+        <section className="rounded-xl bg-surface border border-border p-6">
+          <h2 className="text-lg font-semibold mb-2">Gráficos</h2>
+          <p className="text-text-muted text-sm">Em breve...</p>
         </section>
 
         {/* Recent Transactions */}
@@ -121,12 +161,6 @@ export function DashboardPage() {
           )}
         </section>
       </div>
-
-      {/* Charts placeholder */}
-      <section className="rounded-xl bg-surface border border-border p-6">
-        <h2 className="text-lg font-semibold mb-2">Gráficos</h2>
-        <p className="text-text-muted text-sm">Em breve...</p>
-      </section>
     </div>
   );
 }
