@@ -1,6 +1,7 @@
 import type {
   AccountType,
   CategoryType,
+  ImportType,
   InvoiceStatus,
   Recurrence,
   TransactionType,
@@ -113,4 +114,40 @@ export interface PlannedExpense {
   Description: string;
   IsActive: boolean;
   CreatedAt: string;
+}
+
+export interface CategorizedTransaction {
+  original_description: string;
+  cleaned_description: string;
+  amount: number;
+  transaction_date: string;
+  transaction_type: TransactionType;
+  category_id: string | null;
+  suggested_category_name: string | null;
+  suggested_category_type: CategoryType | null;
+  confidence: number;
+  installments?: number | null;
+  current_installment?: number | null;
+}
+
+export interface SuggestedCategory {
+  name: string;
+  category_type: CategoryType;
+}
+
+export interface ImportPreviewResponse {
+  import_type: ImportType;
+  target_id: string;
+  transactions: CategorizedTransaction[] | null;
+  new_categories_suggested: SuggestedCategory[] | null;
+  summary: string;
+  total_transactions: number;
+  total_amount: number;
+}
+
+export interface ImportResult {
+  created: number;
+  duplicates_skipped: number;
+  categories_created: number;
+  errors: string[] | null;
 }

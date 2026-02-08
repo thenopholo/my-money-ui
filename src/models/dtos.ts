@@ -1,4 +1,4 @@
-import type { AccountType, CategoryType, Recurrence, TransactionType } from "./enums.ts";
+import type { AccountType, CategoryType, ImportType, Recurrence, TransactionType } from "./enums.ts";
 
 // --- Error ---
 
@@ -198,4 +198,24 @@ export interface UpdatePlannedExpenseRequest {
   description: string;
   frequency: Recurrence;
   is_active: boolean;
+}
+
+// --- Import CSV ---
+
+export interface ImportConfirmRequest {
+  import_type: ImportType;
+  target_id: string;
+  transactions: ImportConfirmTransaction[];
+}
+
+export interface ImportConfirmTransaction {
+  description: string;
+  amount: number;
+  transaction_date: string;
+  transaction_type: TransactionType;
+  category_id: string | null;
+  new_category_name: string | null;
+  new_category_type: CategoryType | null;
+  installments?: number | null;
+  current_installment?: number | null;
 }

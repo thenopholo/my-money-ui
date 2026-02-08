@@ -90,3 +90,19 @@ export async function del<T = void>(path: string, authenticated = true): Promise
   });
   return handleResponse<T>(response);
 }
+
+export async function postMultipart<T>(path: string, formData: FormData, authenticated = true): Promise<T> {
+  const headers: Record<string, string> = {};
+  if (authenticated) {
+    const token = getToken();
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+  }
+  const response = await fetch(`${BASE_URL}${path}`, {
+    method: "POST",
+    headers,
+    body: formData,
+  });
+  return handleResponse<T>(response);
+}

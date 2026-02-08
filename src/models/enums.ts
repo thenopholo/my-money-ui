@@ -7,3 +7,5 @@ export type TransactionType = "income" | "expense";
 export type InvoiceStatus = "open" | "closed" | "paid" | "expired";
 
 export type Recurrence = "once" | "monthly" | "yearly";
+
+export type ImportType = "bank_account" | "credit_card";
