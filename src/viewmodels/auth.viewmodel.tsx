@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 import type { ReactNode } from "react";
 import type { User } from "../models/entities.ts";
 import type { LoginRequest, RegisterRequest } from "../models/dtos.ts";
@@ -15,20 +15,19 @@ export interface AuthContextValue {
   logout: () => void;
 }
 
-export const AuthContext = createContext<AuthContextValue | null>(null);
+const AuthContext = createContext<AuthContextValue | null>(null);
+
+function loadStoredUser(): User | null {
+  const token = getToken();
+  const stored = localStorage.getItem(USER_KEY);
+  if (token && stored) {
+    return JSON.parse(stored) as User;
+  }
+  return null;
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const token = getToken();
-    const stored = localStorage.getItem(USER_KEY);
-    if (token && stored) {
-      setUser(JSON.parse(stored) as User);
-    }
-    setIsLoading(false);
-  }, []);
+  const [user, setUser] = useState<User | null>(loadStoredUser);
 
   const login = useCallback(async (data: LoginRequest) => {
     const res = await authService.login(data);
@@ -55,7 +54,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AuthContext value={{ user, isLoading, login, register, logout }}>
+    <AuthContext value={{ user, isLoading: false, login, register, logout }}>
       {children}
     </AuthContext>
   );
