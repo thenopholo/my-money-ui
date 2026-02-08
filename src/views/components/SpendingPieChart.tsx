@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { formatCurrency } from "../../utils/currency.ts";
 
 export interface CategorySpending {
@@ -22,6 +23,7 @@ const FALLBACK_COLORS = [
 ];
 
 export function SpendingPieChart({ data }: SpendingPieChartProps) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const total = data.reduce((sum, d) => sum + d.amount, 0);
 
   if (data.length === 0 || total === 0) {
@@ -34,12 +36,21 @@ export function SpendingPieChart({ data }: SpendingPieChartProps) {
     );
   }
 
-  const size = 140;
+  const size = 280;
   const center = size / 2;
-  const radius = 56;
-  const innerRadius = 34;
+  const radius = 120;
+  const innerRadius = 75;
+  const hoverRadius = 130;
 
-  const slices: { path: string; color: string }[] = [];
+  interface SliceData {
+    path: string;
+    hoverPath: string;
+    color: string;
+    startAngle: number;
+    endAngle: number;
+  }
+
+  const slices: SliceData[] = [];
   let currentAngle = -Math.PI / 2;
 
   for (let i = 0; i < data.length; i++) {
@@ -47,70 +58,95 @@ export function SpendingPieChart({ data }: SpendingPieChartProps) {
     const sliceAngle = (slice.amount / total) * Math.PI * 2;
     const endAngle = currentAngle + sliceAngle;
 
-    const x1 = center + radius * Math.cos(currentAngle);
-    const y1 = center + radius * Math.sin(currentAngle);
-    const x2 = center + radius * Math.cos(endAngle);
-    const y2 = center + radius * Math.sin(endAngle);
-
-    const ix1 = center + innerRadius * Math.cos(currentAngle);
-    const iy1 = center + innerRadius * Math.sin(currentAngle);
-    const ix2 = center + innerRadius * Math.cos(endAngle);
-    const iy2 = center + innerRadius * Math.sin(endAngle);
-
-    const largeArc = sliceAngle > Math.PI ? 1 : 0;
     const color =
       slice.color || FALLBACK_COLORS[i % FALLBACK_COLORS.length];
 
-    const path = [
-      `M ${x1} ${y1}`,
-      `A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2}`,
-      `L ${ix2} ${iy2}`,
-      `A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${ix1} ${iy1}`,
-      "Z",
-    ].join(" ");
+    const buildPath = (outerR: number): string => {
+      const x1 = center + outerR * Math.cos(currentAngle);
+      const y1 = center + outerR * Math.sin(currentAngle);
+      const x2 = center + outerR * Math.cos(endAngle);
+      const y2 = center + outerR * Math.sin(endAngle);
 
-    slices.push({ path, color });
+      const ix1 = center + innerRadius * Math.cos(currentAngle);
+      const iy1 = center + innerRadius * Math.sin(currentAngle);
+      const ix2 = center + innerRadius * Math.cos(endAngle);
+      const iy2 = center + innerRadius * Math.sin(endAngle);
+
+      const largeArc = sliceAngle > Math.PI ? 1 : 0;
+
+      return [
+        `M ${x1} ${y1}`,
+        `A ${outerR} ${outerR} 0 ${largeArc} 1 ${x2} ${y2}`,
+        `L ${ix2} ${iy2}`,
+        `A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${ix1} ${iy1}`,
+        "Z",
+      ].join(" ");
+    };
+
+    slices.push({
+      path: buildPath(radius),
+      hoverPath: buildPath(hoverRadius),
+      color,
+      startAngle: currentAngle,
+      endAngle,
+    });
+
     currentAngle = endAngle;
   }
 
+  const hoveredItem = hoveredIndex !== null ? data[hoveredIndex] : null;
+  const hoveredPercent =
+    hoveredItem !== null ? ((hoveredItem.amount / total) * 100).toFixed(2) : "";
+
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="relative">
+    <div className="flex items-center justify-center">
+      <div className="relative" style={{ width: size, height: size }}>
         <svg
           width={size}
           height={size}
           viewBox={`0 0 ${size} ${size}`}
           className="drop-shadow"
         >
-          {slices.map((slice, i) => (
-            <path key={i} d={slice.path} fill={slice.color} />
-          ))}
+          {slices.map((slice, i) => {
+            const isHovered = hoveredIndex === i;
+            return (
+              <path
+                key={i}
+                d={isHovered ? slice.hoverPath : slice.path}
+                fill={slice.color}
+                stroke={isHovered ? "#ffffff" : "transparent"}
+                strokeWidth={isHovered ? 2 : 0}
+                style={{
+                  transition: "d 0.2s ease, stroke 0.2s ease",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
+              />
+            );
+          })}
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-xs font-semibold text-text-primary">
-            {formatCurrency(total)}
-          </span>
-        </div>
-      </div>
 
-      <div className="w-full space-y-1.5 max-h-36 overflow-y-auto">
-        {data.map((item, i) => (
-          <div key={i} className="flex items-center gap-2 text-xs">
-            <span
-              className="h-2.5 w-2.5 rounded-full shrink-0"
-              style={{
-                backgroundColor:
-                  item.color || FALLBACK_COLORS[i % FALLBACK_COLORS.length],
-              }}
-            />
-            <span className="text-text-secondary truncate flex-1">
-              {item.categoryName}
-            </span>
-            <span className="text-text-primary font-medium shrink-0">
-              {formatCurrency(item.amount)}
-            </span>
-          </div>
-        ))}
+        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          {hoveredItem ? (
+            <>
+              <span className="text-lg font-bold text-text-primary">
+                {formatCurrency(hoveredItem.amount)}
+              </span>
+              <span className="text-xs text-text-secondary">
+                {hoveredItem.categoryName}
+              </span>
+              <span className="text-xs text-text-muted">{hoveredPercent}%</span>
+            </>
+          ) : (
+            <>
+              <span className="text-lg font-bold text-text-primary">
+                {formatCurrency(total)}
+              </span>
+              <span className="text-xs text-text-muted">Total</span>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

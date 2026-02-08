@@ -69,7 +69,7 @@ export function CreditCardWalletStack({
   if (cards.length === 1) {
     const card = cards[0];
     return (
-      <div className="max-w-sm">
+      <div className="max-w-sm mx-auto">
         <CreditCardVisual
           card={card}
           spent={spentByCard[card.ID] ?? 0}
@@ -83,7 +83,7 @@ export function CreditCardWalletStack({
   const containerHeight = h + (visibleCards.length - 1) * PEEK_HEIGHT;
 
   return (
-    <div className="relative max-w-sm">
+    <div className="relative max-w-sm mx-auto">
       <div
         className="relative transition-[height] duration-300 ease-in-out"
         style={{ height: `${containerHeight}px` }}

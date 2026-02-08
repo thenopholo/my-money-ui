@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   CreditCard,
   DollarSign,
@@ -6,17 +7,21 @@ import {
   Percent,
   PieChart,
   Wallet,
+  Calendar,
+  BarChart3,
 } from "lucide-react";
 import { formatCurrency } from "../../utils/currency.ts";
 import { useDashboardViewModel } from "../../viewmodels/dashboard.viewmodel.ts";
 import { SummaryCard } from "../components/SummaryCard.tsx";
 import { CreditCardWalletStack } from "../components/CreditCardWalletStack.tsx";
 import { SpendingPieChart } from "../components/SpendingPieChart.tsx";
+import { BankAccountCard } from "../components/BankAccountCard.tsx";
+import { SpendingCalendar } from "../components/SpendingCalendar.tsx";
+import { SpendingFrequencyChart } from "../components/SpendingFrequencyChart.tsx";
 
 export function DashboardPage() {
   const {
     accounts,
-    recentTransactions,
     totalBalance,
     monthIncome,
     monthExpense,
@@ -24,6 +29,9 @@ export function DashboardPage() {
     creditCards,
     spentByCard,
     cardSpendingByCategory,
+    allTransactions,
+    allCreditCardTransactions,
+    accountPredictedBalances,
     loading,
   } = useDashboardViewModel();
 
@@ -39,7 +47,7 @@ export function DashboardPage() {
     <div className="space-y-8">
       <h1 className="text-2xl font-bold">Dashboard</h1>
 
-      {/* Summary Cards */}
+      {/* Row 1: Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <SummaryCard
           title="Saldo Total"
@@ -67,100 +75,119 @@ export function DashboardPage() {
         />
       </div>
 
-      {/* Row 2: Accounts + Credit Cards */}
+      {/* Row 2: Cartões de Crédito + Despesas por Categoria */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Accounts */}
-        <section className="rounded-xl bg-surface border border-border p-6">
-          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
-            <Wallet className="h-5 w-5 text-primary" />
-            Suas Contas
-          </h2>
-          {accounts.length === 0 ? (
-            <p className="text-text-muted text-sm">Nenhuma conta cadastrada.</p>
-          ) : (
-            <div className="space-y-3">
-              {accounts.map((account) => (
-                <div
-                  key={account.ID}
-                  className="flex items-center justify-between rounded-lg bg-surface-light p-4"
-                >
-                  <div>
-                    <p className="text-sm font-medium">{account.Name}</p>
-                    <p className="text-xs text-text-muted">{account.BankName}</p>
-                  </div>
-                  <p className="text-sm font-semibold text-primary">
-                    {formatCurrency(account.Balance)}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* Credit Cards + Pie Chart */}
+        {/* Cartões de Crédito */}
         <section className="rounded-xl bg-surface border border-border p-6">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <CreditCard className="h-5 w-5 text-primary" />
             Seus Cartões
           </h2>
-          <div className="flex gap-6 items-start">
-            <div className="flex-1 min-w-0">
-              <CreditCardWalletStack
-                cards={creditCards}
-                spentByCard={spentByCard}
-              />
-            </div>
-            <div className="w-48 shrink-0">
-              <p className="text-xs text-text-muted mb-3 flex items-center gap-1.5">
-                <PieChart className="h-3.5 w-3.5" />
-                Gastos por Categoria
-              </p>
-              <SpendingPieChart data={cardSpendingByCategory} />
-            </div>
+          <CreditCardWalletStack
+            cards={creditCards}
+            spentByCard={spentByCard}
+          />
+          <div className="border-t border-border mt-4 pt-3 text-center">
+            <Link
+              to="/credit-cards"
+              className="text-sm text-accent hover:underline uppercase tracking-wide"
+            >
+              VER MAIS
+            </Link>
+          </div>
+        </section>
+
+        {/* Despesas por Categoria — Donut */}
+        <section className="rounded-xl bg-surface border border-border p-6">
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <PieChart className="h-5 w-5 text-primary" />
+            Despesas por categoria
+          </h2>
+          <SpendingPieChart data={cardSpendingByCategory} />
+          <div className="border-t border-border mt-4 pt-3 text-center">
+            <Link
+              to="/categories"
+              className="text-sm text-accent hover:underline uppercase tracking-wide"
+            >
+              VER MAIS
+            </Link>
           </div>
         </section>
       </div>
 
-      {/* Row 3: Charts + Recent Transactions */}
+      {/* Row 3: Minhas Contas + Calendário */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Charts placeholder */}
+        {/* Minhas Contas */}
         <section className="rounded-xl bg-surface border border-border p-6">
-          <h2 className="text-lg font-semibold mb-2">Gráficos</h2>
-          <p className="text-text-muted text-sm">Em breve...</p>
-        </section>
-
-        {/* Recent Transactions */}
-        <section className="rounded-xl bg-surface border border-border p-6">
-          <h2 className="text-lg font-semibold mb-4">Transações Recentes</h2>
-          {recentTransactions.length === 0 ? (
-            <p className="text-text-muted text-sm">Nenhuma transação encontrada.</p>
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Wallet className="h-5 w-5 text-primary" />
+            Minhas contas
+          </h2>
+          {accounts.length === 0 ? (
+            <p className="text-text-muted text-sm">
+              Nenhuma conta cadastrada.
+            </p>
           ) : (
-            <div className="space-y-3">
-              {recentTransactions.map((tx) => (
-                <div
-                  key={tx.ID}
-                  className="flex items-center justify-between rounded-lg bg-surface-light p-4"
-                >
-                  <div>
-                    <p className="text-sm font-medium">{tx.Description}</p>
-                    <p className="text-xs text-text-muted">
-                      {new Date(tx.TransactionDate).toLocaleDateString("pt-BR")}
-                    </p>
-                  </div>
-                  <p
-                    className={`text-sm font-semibold ${
-                      tx.TransactionType === "income" ? "text-income" : "text-expense"
-                    }`}
-                  >
-                    {tx.TransactionType === "expense" ? "- " : "+ "}
-                    {formatCurrency(tx.Amount)}
-                  </p>
-                </div>
+            <div className="space-y-4">
+              {accounts.map((account) => (
+                <BankAccountCard
+                  key={account.ID}
+                  account={account}
+                  predictedBalance={accountPredictedBalances[account.ID]}
+                />
               ))}
             </div>
           )}
+          <div className="border-t border-border mt-4 pt-3 text-center">
+            <Link
+              to="/accounts"
+              className="text-sm text-accent hover:underline uppercase tracking-wide"
+            >
+              VER MAIS
+            </Link>
+          </div>
+        </section>
+
+        {/* Calendário */}
+        <section className="rounded-xl bg-surface border border-border p-6">
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Calendar className="h-5 w-5 text-primary" />
+            Calendário
+          </h2>
+          <SpendingCalendar
+            transactions={allTransactions}
+            creditCardTransactions={allCreditCardTransactions}
+          />
+          <div className="border-t border-border mt-4 pt-3 text-center">
+            <Link
+              to="/transactions"
+              className="text-sm text-accent hover:underline uppercase tracking-wide"
+            >
+              VER MAIS
+            </Link>
+          </div>
         </section>
       </div>
+
+      {/* Row 4: Frequência de Gastos — Full width */}
+      <section className="rounded-xl bg-surface border border-border p-6">
+        <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+          <BarChart3 className="h-5 w-5 text-primary" />
+          Frequência de gastos
+        </h2>
+        <SpendingFrequencyChart
+          transactions={allTransactions}
+          creditCardTransactions={allCreditCardTransactions}
+        />
+        <div className="border-t border-border mt-4 pt-3 text-center">
+          <Link
+            to="/transactions"
+            className="text-sm text-accent hover:underline uppercase tracking-wide"
+          >
+            VER MAIS
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

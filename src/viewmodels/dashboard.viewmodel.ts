@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { listAccounts } from "../services/accounts.service.ts";
 import { listAccountTransactions } from "../services/transactions.service.ts";
 import { listCreditCards } from "../services/credit-cards.service.ts";
-import { listInvoices } from "../services/invoices.service.ts";
 import { listCreditCardTransactions } from "../services/credit-card-transactions.service.ts";
 import { listCategories } from "../services/categories.service.ts";
 import type {
@@ -18,6 +17,9 @@ export function useDashboardViewModel() {
   const [accounts, setAccounts] = useState<BankAccount[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [creditCards, setCreditCards] = useState<CreditCard[]>([]);
+  const [allCreditCardTransactions, setAllCreditCardTransactions] = useState<
+    CreditCardTransaction[]
+  >([]);
   const [spentByCard, setSpentByCard] = useState<Record<string, number>>({});
   const [cardSpendingByCategory, setCardSpendingByCategory] = useState<
     CategorySpending[]
@@ -42,23 +44,36 @@ export function useDashboardViewModel() {
         const spent: Record<string, number> = {};
         const allCardTxs: CreditCardTransaction[] = [];
 
+        const now = new Date();
+        const currentMonth = now.getMonth();
+        const currentYear = now.getFullYear();
+
         const cardPromises = cards.map(async (card) => {
           try {
-            const [invoices, cardTxs] = await Promise.all([
-              listInvoices(card.ID),
-              listCreditCardTransactions(card.ID),
-            ]);
-            const openInvoice = invoices.find((inv) => inv.Status === "open");
-            spent[card.ID] = openInvoice
-              ? parseFloat(openInvoice.TotalAmount)
-              : 0;
+            const cardTxs = await listCreditCardTransactions(card.ID);
             allCardTxs.push(...cardTxs);
+
+            // Bug fix: calcular spent com base nas transações do mês corrente
+            // ao invés de depender da fatura aberta
+            const closeDay = card.CloseDay;
+            const cycleStart = new Date(currentYear, currentMonth - 1, closeDay);
+            const cycleEnd = new Date(currentYear, currentMonth, closeDay);
+
+            const cycleTotal = cardTxs
+              .filter((tx) => {
+                const txDate = new Date(tx.TransactionDate);
+                return txDate >= cycleStart && txDate < cycleEnd;
+              })
+              .reduce((sum, tx) => sum + parseFloat(tx.Amount), 0);
+
+            spent[card.ID] = cycleTotal;
           } catch {
             spent[card.ID] = 0;
           }
         });
         await Promise.all(cardPromises);
         setSpentByCard(spent);
+        setAllCreditCardTransactions(allCardTxs);
 
         const categoryMap = new Map<string, Category>();
         for (const cat of categories) {
@@ -113,13 +128,22 @@ export function useDashboardViewModel() {
     .filter((t) => t.TransactionType === "expense")
     .reduce((sum, t) => sum + parseFloat(t.Amount), 0);
 
-  const savingsRate = monthIncome > 0
-    ? ((monthIncome - monthExpense) / monthIncome) * 100
-    : 0;
+  const savingsRate =
+    monthIncome > 0 ? ((monthIncome - monthExpense) / monthIncome) * 100 : 0;
 
   const recentTransactions = [...transactions]
-    .sort((a, b) => new Date(b.TransactionDate).getTime() - new Date(a.TransactionDate).getTime())
+    .sort(
+      (a, b) =>
+        new Date(b.TransactionDate).getTime() -
+        new Date(a.TransactionDate).getTime(),
+    )
     .slice(0, 5);
+
+  // Saldo previsto por conta: Balance como fallback (sem dados de planejamento no dashboard)
+  const accountPredictedBalances: Record<string, number> = {};
+  for (const account of accounts) {
+    accountPredictedBalances[account.ID] = parseFloat(account.Balance);
+  }
 
   return {
     accounts,
@@ -131,6 +155,9 @@ export function useDashboardViewModel() {
     creditCards,
     spentByCard,
     cardSpendingByCategory,
+    allTransactions: transactions,
+    allCreditCardTransactions,
+    accountPredictedBalances,
     loading,
   };
 }

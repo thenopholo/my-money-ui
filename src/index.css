@@ -30,4 +30,12 @@
 
   /* Border */
   --color-border: #27272a;
+
+  /* Accent / Purple */
+  --color-accent: #8b5cf6;
+  --color-accent-hover: #7c3aed;
+  --color-accent-dim: #8b5cf633;
+
+  /* Warning / Yellow */
+  --color-warning: #eab308;
 }
