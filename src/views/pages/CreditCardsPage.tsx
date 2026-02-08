@@ -14,6 +14,7 @@ import type {
 export function CreditCardsPage() {
   const {
     cards,
+    spentByCard,
     loading,
     saving,
     error,
@@ -118,7 +119,7 @@ export function CreditCardsPage() {
               key={card.ID}
               className="rounded-xl glass p-5 shadow-lg flex flex-col gap-4"
             >
-              <CreditCardVisual card={card} spent={0} />
+              <CreditCardVisual card={card} spent={spentByCard[card.ID] ?? 0} />
 
               <div className="flex items-center gap-2">
                 <span
