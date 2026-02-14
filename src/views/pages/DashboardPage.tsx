@@ -18,6 +18,7 @@ import { SpendingPieChart } from "../components/SpendingPieChart.tsx";
 import { BankAccountCard } from "../components/BankAccountCard.tsx";
 import { SpendingCalendar } from "../components/SpendingCalendar.tsx";
 import { SpendingFrequencyChart } from "../components/SpendingFrequencyChart.tsx";
+import { UnicornBackground } from "../components/UnicornBackground.tsx";
 
 export function DashboardPage() {
   const {
@@ -38,13 +39,14 @@ export function DashboardPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-orange-500 border-t-transparent" />
       </div>
     );
   }
 
   return (
     <div className="space-y-8">
+      <UnicornBackground projectId="luminous-dashboard" />
       <h1 className="text-2xl font-bold">Dashboard</h1>
 
       {/* Row 1: Summary Cards */}
@@ -78,7 +80,7 @@ export function DashboardPage() {
       {/* Row 2: Cartões de Crédito + Despesas por Categoria */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Cartões de Crédito */}
-        <section className="rounded-2xl glass shadow-lg p-6">
+        <section className="card-glow rounded-2xl p-6">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <CreditCard className="h-5 w-5 text-primary" />
             Seus Cartões
@@ -90,7 +92,7 @@ export function DashboardPage() {
           <div className="border-t border-white/10 mt-4 pt-3 text-center">
             <Link
               to="/credit-cards"
-              className="text-sm text-accent hover:underline uppercase tracking-wide"
+              className="text-sm text-primary hover:underline uppercase tracking-wide"
             >
               VER MAIS
             </Link>
@@ -98,7 +100,7 @@ export function DashboardPage() {
         </section>
 
         {/* Despesas por Categoria — Donut */}
-        <section className="rounded-2xl glass shadow-lg p-6">
+        <section className="card-glow rounded-2xl p-6">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <PieChart className="h-5 w-5 text-primary" />
             Despesas por categoria
@@ -107,7 +109,7 @@ export function DashboardPage() {
           <div className="border-t border-white/10 mt-4 pt-3 text-center">
             <Link
               to="/categories"
-              className="text-sm text-accent hover:underline uppercase tracking-wide"
+              className="text-sm text-primary hover:underline uppercase tracking-wide"
             >
               VER MAIS
             </Link>
@@ -118,7 +120,7 @@ export function DashboardPage() {
       {/* Row 3: Minhas Contas + Calendário */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Minhas Contas */}
-        <section className="rounded-2xl glass shadow-lg p-6">
+        <section className="card-glow rounded-2xl p-6">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Wallet className="h-5 w-5 text-primary" />
             Minhas contas
@@ -141,7 +143,7 @@ export function DashboardPage() {
           <div className="border-t border-white/10 mt-4 pt-3 text-center">
             <Link
               to="/accounts"
-              className="text-sm text-accent hover:underline uppercase tracking-wide"
+              className="text-sm text-primary hover:underline uppercase tracking-wide"
             >
               VER MAIS
             </Link>
@@ -149,7 +151,7 @@ export function DashboardPage() {
         </section>
 
         {/* Calendário */}
-        <section className="rounded-2xl glass shadow-lg p-6">
+        <section className="card-glow rounded-2xl p-6">
           <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Calendar className="h-5 w-5 text-primary" />
             Calendário
@@ -161,7 +163,7 @@ export function DashboardPage() {
           <div className="border-t border-white/10 mt-4 pt-3 text-center">
             <Link
               to="/transactions"
-              className="text-sm text-accent hover:underline uppercase tracking-wide"
+              className="text-sm text-primary hover:underline uppercase tracking-wide"
             >
               VER MAIS
             </Link>
@@ -170,7 +172,7 @@ export function DashboardPage() {
       </div>
 
       {/* Row 4: Frequência de Gastos — Full width */}
-      <section className="rounded-2xl glass shadow-lg p-6">
+      <section className="card-glow rounded-2xl p-6">
         <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
           <BarChart3 className="h-5 w-5 text-primary" />
           Frequência de gastos
@@ -182,7 +184,7 @@ export function DashboardPage() {
         <div className="border-t border-white/10 mt-4 pt-3 text-center">
           <Link
             to="/transactions"
-            className="text-sm text-accent hover:underline uppercase tracking-wide"
+            className="text-sm text-primary hover:underline uppercase tracking-wide"
           >
             VER MAIS
           </Link>

@@ -63,7 +63,7 @@ export function CategoriesPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-orange-500 border-t-transparent" />
       </div>
     );
   }
@@ -78,7 +78,7 @@ export function CategoriesPage() {
         </h1>
         <button
           onClick={openCreate}
-          className="rounded-lg bg-primary hover:bg-primary-hover text-background font-semibold py-2.5 px-4 text-sm transition-colors flex items-center gap-2"
+          className="rounded-full bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 btn-glow text-white font-semibold py-2.5 px-4 text-sm transition-colors flex items-center gap-2"
         >
           <Plus className="h-4 w-4" />
           Nova Categoria
@@ -123,7 +123,7 @@ export function CategoriesPage() {
 
       {/* Error state */}
       {error && (
-        <div className="rounded-xl glass border border-danger/50 p-4 flex items-center justify-between">
+        <div className="rounded-xl card-luminous border border-danger/50 p-4 flex items-center justify-between">
           <p className="text-sm text-danger">{error}</p>
           <button
             onClick={loadCategories}
@@ -137,7 +137,7 @@ export function CategoriesPage() {
 
       {/* Empty state */}
       {!error && filteredCategories.length === 0 && (
-        <div className="rounded-xl glass p-12 shadow-lg flex flex-col items-center justify-center text-center">
+        <div className="rounded-xl card-luminous p-12 flex flex-col items-center justify-center text-center">
           <Tag className="h-12 w-12 text-text-muted mb-4" />
           <p className="text-text-muted text-sm">
             {filter !== "all"
@@ -153,7 +153,7 @@ export function CategoriesPage() {
           {filteredCategories.map((category) => (
             <div
               key={category.ID}
-              className="rounded-xl glass p-4 shadow-lg flex flex-col gap-3"
+              className="rounded-xl card-luminous p-4 flex flex-col gap-3"
             >
               <div className="flex items-start justify-between">
                 <CategoryBadge category={category} size="lg" />

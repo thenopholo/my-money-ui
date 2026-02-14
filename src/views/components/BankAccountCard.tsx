@@ -39,7 +39,7 @@ export function BankAccountCard({
             className="h-10 w-10 rounded-full object-cover"
           />
         ) : (
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.02] ring-1 ring-white/10">
             <Landmark className="h-5 w-5 text-text-secondary" />
           </div>
         )}
@@ -48,7 +48,7 @@ export function BankAccountCard({
             {account.BankName} - {typeLabel}
           </p>
         </div>
-        <button className="flex items-center gap-1.5 rounded-full border border-text-secondary px-3 py-1 text-xs text-text-secondary shrink-0">
+        <button className="flex items-center gap-1.5 rounded-full ring-1 ring-white/10 px-3 py-1 text-xs text-text-secondary shrink-0">
           <RefreshCw className="h-3 w-3" />
           Open Finance
         </button>

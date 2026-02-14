@@ -103,7 +103,7 @@ export function PlannedIncomesPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-orange-500 border-t-transparent" />
       </div>
     );
   }
@@ -120,7 +120,7 @@ export function PlannedIncomesPage() {
         </h1>
         <button
           onClick={openCreate}
-          className="rounded-lg bg-primary hover:bg-primary-hover text-background font-semibold py-2.5 px-4 text-sm transition-colors flex items-center gap-2"
+          className="rounded-full bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 btn-glow text-white font-semibold py-2.5 px-4 text-sm transition-colors flex items-center gap-2"
         >
           <Plus className="h-4 w-4" />
           Nova Receita
@@ -129,7 +129,7 @@ export function PlannedIncomesPage() {
 
       {/* Error state */}
       {error && (
-        <div className="rounded-xl glass border border-danger/50 p-4 flex items-center justify-between">
+        <div className="rounded-xl card-luminous border border-danger/50 p-4 flex items-center justify-between">
           <p className="text-sm text-danger">{error}</p>
           <button
             onClick={loadData}
@@ -143,7 +143,7 @@ export function PlannedIncomesPage() {
 
       {/* Summary bar */}
       {!error && incomes.length > 0 && (
-        <div className="rounded-xl glass shadow-lg p-4 flex items-center justify-between">
+        <div className="rounded-xl card-luminous p-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <DollarSign className="h-5 w-5 text-income" />
@@ -208,7 +208,7 @@ export function PlannedIncomesPage() {
 
       {/* Empty state */}
       {!error && incomes.length === 0 && (
-        <div className="rounded-xl glass shadow-lg p-12 flex flex-col items-center justify-center text-center">
+        <div className="rounded-xl card-luminous p-12 flex flex-col items-center justify-center text-center">
           <TrendingUp className="h-12 w-12 text-text-muted mb-4" />
           <p className="text-text-muted text-sm">
             Nenhuma receita planejada cadastrada. Crie sua primeira receita para começar!
@@ -218,7 +218,7 @@ export function PlannedIncomesPage() {
 
       {/* Filtered empty state */}
       {!error && incomes.length > 0 && filteredIncomes.length === 0 && hasFilters && (
-        <div className="rounded-xl glass shadow-lg p-12 flex flex-col items-center justify-center text-center">
+        <div className="rounded-xl card-luminous p-12 flex flex-col items-center justify-center text-center">
           <TrendingUp className="h-12 w-12 text-text-muted mb-4" />
           <p className="text-text-muted text-sm">
             Nenhuma receita planejada encontrada com os filtros selecionados.

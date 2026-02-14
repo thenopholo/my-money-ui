@@ -1,20 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Kode Mono", monospace;
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Bricolage Grotesque", sans-serif;
 
-  /* Background (fallback) */
-  --color-background: #0b0b0f;
-  --color-surface: #14141a;
-  --color-surface-hover: #1c1c24;
-  --color-surface-light: #23232e;
+  /* Background */
+  --color-background: #050505;
+  --color-surface: #0a0a0a;
+  --color-surface-hover: #111111;
+  --color-surface-light: #161616;
 
-  /* Background Gradient Stops */
-  --color-background-start: #0a0a1a;
-  --color-background-mid: #0d1025;
-  --color-background-end: #0f0b1e;
-
-  /* Glass Surfaces */
+  /* Glass Surfaces (mapped to new tokens) */
   --color-glass: rgba(255, 255, 255, 0.03);
   --color-glass-hover: rgba(255, 255, 255, 0.06);
   --color-glass-border: rgba(255, 255, 255, 0.08);
@@ -24,10 +20,10 @@
   --spacing-sidebar-expanded: 16rem;
   --spacing-sidebar-collapsed: 4.5rem;
 
-  /* Primary / Green */
-  --color-primary: #8b5cf6;
-  --color-primary-hover: #7c3aed;
-  --color-primary-dim: #8b5cf633;
+  /* Primary / Orange */
+  --color-primary: #f97316;
+  --color-primary-hover: #ea580c;
+  --color-primary-dim: #f9731633;
 
   /* Danger / Red */
   --color-danger: #ef4444;
@@ -44,12 +40,12 @@
   --color-expense: #ef4444;
 
   /* Border */
-  --color-border: #27272a;
+  --color-border: #1a1a1a;
 
-  /* Accent / Purple */
-  --color-accent: #8b5cf6;
-  --color-accent-hover: #7c3aed;
-  --color-accent-dim: #8b5cf633;
+  /* Accent / Orange */
+  --color-accent: #f97316;
+  --color-accent-hover: #ea580c;
+  --color-accent-dim: #f9731633;
 
   /* Warning / Yellow */
   --color-warning: #eab308;
@@ -57,15 +53,7 @@
 
 @layer base {
   body {
-    background: linear-gradient(
-      135deg,
-      #0a0a1a 0%,
-      #0d1025 30%,
-      #12082a 55%,
-      #0a0e1a 80%,
-      #080818 100%
-    );
-    background-attachment: fixed;
+    background-color: #050505;
     min-height: 100vh;
   }
 
@@ -85,26 +73,145 @@
 }
 
 @layer components {
-  .glass {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+  /* Luminous card styles */
+  .card-luminous {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
   }
 
-  .glass-strong {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+  .card-surface {
+    background: #0a0a0a;
+    border-radius: 0.75rem;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
   }
 
-  .glass-hover:hover {
-    background: rgba(255, 255, 255, 0.06);
+  /* Animated star field background */
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 50px 160px, #fff, rgba(0,0,0,0)),
+      radial-gradient(1.5px 1.5px at 90px 40px, #fff, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0));
+    background-size: 200px 200px;
+    opacity: 0.2;
+    animation: starsDrift 60s linear infinite, starsFlicker 8s ease-in-out infinite alternate;
   }
 
-  .glass-active {
-    background: rgba(255, 255, 255, 0.10);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+  @keyframes starsDrift {
+    from { transform: translateY(0); }
+    to { transform: translateY(-200px); }
+  }
+  @keyframes starsFlicker {
+    0% { opacity: 0.15; }
+    50% { opacity: 0.25; }
+    100% { opacity: 0.18; }
+  }
+
+  /* Glow button */
+  .btn-glow {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.3), 0 0 40px rgba(249, 115, 22, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  .btn-glow:hover {
+    box-shadow: 0 0 25px rgba(249, 115, 22, 0.4), 0 0 50px rgba(249, 115, 22, 0.15);
+  }
+
+  /* Electric card (reference style) */
+  .electric-card {
+    position: relative;
+    background: #0a0a0a;
+    border-radius: 1rem;
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.15), inset 0 0 20px rgba(249, 115, 22, 0.05);
+    overflow: hidden;
+  }
+  .electric-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      ellipse at 50% 0%,
+      rgba(249, 115, 22, 0.08) 0%,
+      transparent 60%
+    );
+    pointer-events: none;
+  }
+
+  /* Glow card with orange border */
+  .card-glow {
+    position: relative;
+    background: #0a0a0a;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.12), 0 0 60px rgba(249, 115, 22, 0.04);
+  }
+  .card-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      180deg,
+      rgba(251, 146, 60, 0.6) 0%,
+      rgba(249, 115, 22, 0.2) 30%,
+      rgba(249, 115, 22, 0) 60%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .card-glow::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(249, 115, 22, 0.06), transparent);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* Display font */
+  .font-display {
+    font-family: "Bricolage Grotesque", sans-serif;
+  }
+
+  /* Entry animation */
+  .animate-entry {
+    animation: entry 0.5s ease-out both;
+  }
+  @keyframes entry {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+
+  /* No scrollbar */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

@@ -69,7 +69,7 @@ export function TransactionsPage() {
         <div className="flex gap-2">
           <button
             onClick={handleOpenCreate}
-            className="rounded-lg bg-primary hover:bg-primary-hover text-background font-semibold px-4 py-2 text-sm transition-colors flex items-center gap-2"
+            className="rounded-full bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 btn-glow text-white font-semibold px-4 py-2 text-sm transition-colors flex items-center gap-2"
           >
             <Plus className="h-4 w-4" />
             Nova Transação
@@ -86,15 +86,15 @@ export function TransactionsPage() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="rounded-xl glass p-4 shadow-lg">
+        <div className="rounded-xl card-luminous p-4">
           <p className="text-xs text-text-muted mb-1">Receitas</p>
           <p className="text-lg font-semibold text-income">+ {formatCurrency(vm.totalIncome)}</p>
         </div>
-        <div className="rounded-xl glass p-4 shadow-lg">
+        <div className="rounded-xl card-luminous p-4">
           <p className="text-xs text-text-muted mb-1">Despesas</p>
           <p className="text-lg font-semibold text-expense">- {formatCurrency(vm.totalExpense)}</p>
         </div>
-        <div className="rounded-xl glass p-4 shadow-lg">
+        <div className="rounded-xl card-luminous p-4">
           <p className="text-xs text-text-muted mb-1">Saldo</p>
           <p className={`text-lg font-semibold ${vm.totalIncome - vm.totalExpense >= 0 ? "text-income" : "text-expense"}`}>
             {formatCurrency(vm.totalIncome - vm.totalExpense)}
@@ -124,7 +124,7 @@ export function TransactionsPage() {
               onClick={() => vm.setFilterType(type)}
               className={`px-4 py-2 text-sm font-medium transition-colors ${
                 vm.filterType === type
-                  ? "bg-primary text-background"
+                  ? "bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-white"
                   : "bg-white/5 text-text-secondary hover:bg-white/10"
               }`}
             >
@@ -169,7 +169,7 @@ export function TransactionsPage() {
 
       {/* Transactions Table */}
       {!vm.loading && vm.filteredTransactions.length > 0 && (
-        <div className="rounded-xl glass overflow-hidden shadow-lg">
+        <div className="rounded-xl card-luminous overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>

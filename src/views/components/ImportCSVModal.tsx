@@ -74,8 +74,8 @@ export function ImportCSVModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="rounded-2xl glass-strong p-6 w-full max-w-lg mx-4 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="rounded-2xl bg-surface ring-1 ring-white/10 p-6 w-full max-w-lg mx-4 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
         <h2 className="text-lg font-semibold mb-4">Importar Transações via CSV</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -85,10 +85,10 @@ export function ImportCSVModal({
               <button
                 type="button"
                 onClick={() => handleTypeChange("bank_account")}
-                className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
+                className={`flex-1 px-4 py-2.5 text-sm font-medium transition-colors ${
                   importType === "bank_account"
-                    ? "bg-primary text-background"
-                    : "bg-white/5 border border-white/10 text-text-secondary hover:bg-white/5"
+                    ? "bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-white rounded-full"
+                    : "bg-white/5 border border-white/10 text-text-secondary hover:bg-white/5 rounded-lg"
                 }`}
               >
                 Extrato Bancário
@@ -96,10 +96,10 @@ export function ImportCSVModal({
               <button
                 type="button"
                 onClick={() => handleTypeChange("credit_card")}
-                className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
+                className={`flex-1 px-4 py-2.5 text-sm font-medium transition-colors ${
                   importType === "credit_card"
-                    ? "bg-primary text-background"
-                    : "bg-white/5 border border-white/10 text-text-secondary hover:bg-white/5"
+                    ? "bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 text-white rounded-full"
+                    : "bg-white/5 border border-white/10 text-text-secondary hover:bg-white/5 rounded-lg"
                 }`}
               >
                 Fatura de Cartão
@@ -115,7 +115,7 @@ export function ImportCSVModal({
               id="importTarget"
               value={targetId}
               onChange={(e) => setTargetId(e.target.value)}
-              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-primary"
+              className="w-full rounded-lg bg-[#050505] border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-white/20"
             >
               <option value="">
                 {importType === "bank_account" ? "Selecione uma conta" : "Selecione um cartão"}
@@ -180,14 +180,14 @@ export function ImportCSVModal({
               type="button"
               onClick={onClose}
               disabled={importing}
-              className="rounded-lg border border-white/10 px-4 py-2.5 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
+              className="rounded-full border border-white/10 px-4 py-2.5 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={importing || !file || !targetId}
-              className="rounded-lg bg-primary hover:bg-primary-hover text-background font-semibold px-4 py-2.5 text-sm transition-colors disabled:opacity-50 flex items-center gap-2"
+              className="rounded-full bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 btn-glow text-white font-semibold px-4 py-2.5 text-sm transition-colors disabled:opacity-50 flex items-center gap-2"
             >
               Enviar para Análise
             </button>

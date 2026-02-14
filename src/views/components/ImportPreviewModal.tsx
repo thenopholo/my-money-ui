@@ -138,8 +138,8 @@ export function ImportPreviewModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="rounded-2xl glass-strong p-6 w-full max-w-6xl mx-4 max-h-[90vh] flex flex-col shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="rounded-2xl bg-surface ring-1 ring-white/10 p-6 w-full max-w-6xl mx-4 max-h-[90vh] flex flex-col shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
         <div className="mb-4">
           <h2 className="text-lg font-semibold">Revisar Transações Importadas</h2>
           <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-text-muted">
@@ -203,7 +203,7 @@ export function ImportPreviewModal({
                         value={tx.description}
                         onChange={(e) => updateTx(i, { description: e.target.value })}
                         title={tx.original_description}
-                        className="w-full rounded bg-white/5 border border-white/10 px-2 py-1 text-sm text-text-primary focus:outline-none focus:border-primary/50"
+                        className="w-full rounded bg-[#050505] border border-white/10 px-2 py-1 text-sm text-text-primary focus:outline-none focus:border-white/20"
                       />
                     </td>
                     <td className="py-2.5 pr-2 whitespace-nowrap">
@@ -228,7 +228,7 @@ export function ImportPreviewModal({
                       <select
                         value={getCategoryValue(tx)}
                         onChange={(e) => handleCategoryChange(i, e.target.value)}
-                        className="w-full rounded bg-white/5 border border-white/10 px-2 py-1 text-sm text-text-primary focus:outline-none focus:border-primary/50"
+                        className="w-full rounded bg-[#050505] border border-white/10 px-2 py-1 text-sm text-text-primary focus:outline-none focus:border-white/20"
                       >
                         <option value="">Selecionar categoria</option>
                         {typeCategories.map((c) => (
@@ -271,7 +271,7 @@ export function ImportPreviewModal({
               type="button"
               onClick={onClose}
               disabled={importing}
-              className="rounded-lg border border-white/10 px-4 py-2.5 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
+              className="rounded-full border border-white/10 px-4 py-2.5 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
             >
               Cancelar
             </button>
@@ -279,7 +279,7 @@ export function ImportPreviewModal({
               type="button"
               onClick={handleConfirm}
               disabled={importing || selectedCount === 0}
-              className="rounded-lg bg-primary hover:bg-primary-hover text-background font-semibold px-4 py-2.5 text-sm transition-colors disabled:opacity-50 flex items-center gap-2"
+              className="rounded-full bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 btn-glow text-white font-semibold px-4 py-2.5 text-sm transition-colors disabled:opacity-50 flex items-center gap-2"
             >
               {importing && <Loader2 className="h-4 w-4 animate-spin" />}
               Confirmar Importação

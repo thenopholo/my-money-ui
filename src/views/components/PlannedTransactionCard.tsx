@@ -39,7 +39,7 @@ export function PlannedTransactionCard({
 
   return (
     <div
-      className={`rounded-xl glass p-5 shadow-lg flex flex-col gap-3 border-l-4 ${
+      className={`rounded-xl card-luminous p-5 flex flex-col gap-3 border-l-4 ${
         type === "income" ? "border-l-income" : "border-l-expense"
       }`}
     >

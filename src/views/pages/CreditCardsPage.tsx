@@ -65,7 +65,7 @@ export function CreditCardsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-orange-500 border-t-transparent" />
       </div>
     );
   }
@@ -80,7 +80,7 @@ export function CreditCardsPage() {
         </h1>
         <button
           onClick={openCreate}
-          className="rounded-lg bg-primary hover:bg-primary-hover text-background font-semibold py-2.5 px-4 text-sm transition-colors flex items-center gap-2"
+          className="rounded-full bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 btn-glow text-white font-semibold py-2.5 px-4 text-sm transition-colors flex items-center gap-2"
         >
           <Plus className="h-4 w-4" />
           Novo Cartão
@@ -89,7 +89,7 @@ export function CreditCardsPage() {
 
       {/* Error state */}
       {error && (
-        <div className="rounded-xl glass border border-danger/50 p-4 flex items-center justify-between">
+        <div className="rounded-xl card-luminous border border-danger/50 p-4 flex items-center justify-between">
           <p className="text-sm text-danger">{error}</p>
           <button
             onClick={loadCards}
@@ -103,7 +103,7 @@ export function CreditCardsPage() {
 
       {/* Empty state */}
       {!error && cards.length === 0 && (
-        <div className="rounded-xl glass p-12 shadow-lg flex flex-col items-center justify-center text-center">
+        <div className="rounded-xl card-luminous p-12 flex flex-col items-center justify-center text-center">
           <CreditCard className="h-12 w-12 text-text-muted mb-4" />
           <p className="text-text-muted text-sm">
             Nenhum cartão cadastrado. Crie seu primeiro cartão para começar!
@@ -117,7 +117,7 @@ export function CreditCardsPage() {
           {cards.map((card) => (
             <div
               key={card.ID}
-              className="rounded-xl glass p-5 shadow-lg flex flex-col gap-4"
+              className="rounded-xl card-luminous p-5 flex flex-col gap-4"
             >
               <CreditCardVisual card={card} spent={spentByCard[card.ID] ?? 0} />
 

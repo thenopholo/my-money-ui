@@ -13,8 +13,8 @@ export function ImportResultModal({ open, onClose, result }: ImportResultModalPr
   const errors = result.errors ?? [];
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="rounded-2xl glass-strong p-6 w-full max-w-md mx-4 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="rounded-2xl bg-surface ring-1 ring-white/10 p-6 w-full max-w-md mx-4 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
         <div className="flex flex-col items-center text-center">
           <CheckCircle2 className="h-12 w-12 text-income mb-4" />
           <h2 className="text-lg font-semibold mb-4">Importação Concluída</h2>
@@ -57,7 +57,7 @@ export function ImportResultModal({ open, onClose, result }: ImportResultModalPr
           <button
             type="button"
             onClick={onClose}
-            className="mt-6 rounded-lg bg-primary hover:bg-primary-hover text-background font-semibold px-6 py-2.5 text-sm transition-colors"
+            className="mt-6 rounded-full bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 btn-glow text-white font-semibold px-6 py-2.5 text-sm transition-colors"
           >
             Fechar
           </button>

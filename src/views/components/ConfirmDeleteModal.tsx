@@ -20,8 +20,8 @@ export function ConfirmDeleteModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="rounded-2xl glass-strong p-6 w-full max-w-md mx-4 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="rounded-2xl bg-surface ring-1 ring-white/10 p-6 w-full max-w-md mx-4 shadow-[0_16px_48px_rgba(0,0,0,0.5)]">
         <h2 className="text-lg font-semibold mb-2">{title}</h2>
         <p className="text-sm text-text-muted mb-6">{message}</p>
 
@@ -30,7 +30,7 @@ export function ConfirmDeleteModal({
             type="button"
             onClick={onClose}
             disabled={loading}
-            className="rounded-lg border border-white/10 px-4 py-2 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
+            className="rounded-full border border-white/10 px-4 py-2 text-sm text-text-secondary hover:bg-white/5 transition-colors disabled:opacity-50"
           >
             Cancelar
           </button>

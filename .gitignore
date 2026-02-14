@@ -29,3 +29,6 @@ dist-ssr
 # AI Instructions
 .claude
 .cursor
+
+# References
+new-ui-ref

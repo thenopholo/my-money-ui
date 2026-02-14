@@ -12,7 +12,7 @@ interface SpendingPieChartProps {
 }
 
 const FALLBACK_COLORS = [
-  "#8b5cf6",
+  "#f97316",
   "#06b6d4",
   "#f59e0b",
   "#ef4444",

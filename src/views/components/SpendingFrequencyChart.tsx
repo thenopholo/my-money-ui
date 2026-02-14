@@ -150,14 +150,14 @@ export function SpendingFrequencyChart({
       <div className="flex justify-end mb-4">
         <div className="relative">
           <button
-            className="flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-sm text-white"
+            className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 px-3 py-1.5 text-sm text-white"
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
             {selectedLabel}
             <ChevronDown className="h-4 w-4" />
           </button>
           {dropdownOpen && (
-            <div className="absolute right-0 top-full mt-1 rounded-lg glass-strong shadow-lg z-10">
+            <div className="absolute right-0 top-full mt-1 rounded-lg bg-surface ring-1 ring-white/10 shadow-lg z-10">
               {PERIOD_OPTIONS.map((opt) => (
                 <button
                   key={opt.value}
@@ -185,8 +185,8 @@ export function SpendingFrequencyChart({
         >
           <defs>
             <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.02" />
+              <stop offset="0%" stopColor="#f97316" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#f97316" stopOpacity="0.02" />
             </linearGradient>
           </defs>
 
@@ -210,7 +210,7 @@ export function SpendingFrequencyChart({
                   textAnchor="end"
                   fill="#52525b"
                   fontSize="10"
-                  fontFamily="monospace"
+                  fontFamily="'Inter', sans-serif"
                 >
                   {formatCurrency(val)}
                 </text>
@@ -228,7 +228,7 @@ export function SpendingFrequencyChart({
             <path
               d={linePath}
               fill="none"
-              stroke="#8b5cf6"
+              stroke="#f97316"
               strokeWidth="2.5"
               strokeLinejoin="round"
               strokeLinecap="round"
@@ -242,8 +242,8 @@ export function SpendingFrequencyChart({
                 cx={p.x}
                 cy={p.y}
                 r={hoveredPoint === i ? 6 : 4}
-                fill={hoveredPoint === i ? "#8b5cf6" : "#ffffff"}
-                stroke="#8b5cf6"
+                fill={hoveredPoint === i ? "#f97316" : "#ffffff"}
+                stroke="#f97316"
                 strokeWidth="2"
                 style={{ cursor: "pointer", transition: "r 0.15s ease" }}
                 onMouseEnter={() => setHoveredPoint(i)}
@@ -277,7 +277,7 @@ export function SpendingFrequencyChart({
                 textAnchor="middle"
                 fill="#52525b"
                 fontSize="10"
-                fontFamily="monospace"
+                fontFamily="'Inter', sans-serif"
               >
                 {p.label}
               </text>
@@ -305,7 +305,7 @@ export function SpendingFrequencyChart({
                   width={tooltipW}
                   height={tooltipH}
                   rx={6}
-                  fill="#23232e"
+                  fill="#0A0A0A"
                   stroke="#27272a"
                   strokeWidth="1"
                 />
@@ -315,7 +315,7 @@ export function SpendingFrequencyChart({
                   textAnchor="middle"
                   fill="#a1a1aa"
                   fontSize="10"
-                  fontFamily="monospace"
+                  fontFamily="'Inter', sans-serif"
                 >
                   {pt.label}
                 </text>
@@ -326,7 +326,7 @@ export function SpendingFrequencyChart({
                   fill="#f1f1f1"
                   fontSize="11"
                   fontWeight="bold"
-                  fontFamily="monospace"
+                  fontFamily="'Inter', sans-serif"
                 >
                   {formatCurrency(pt.amount)}
                 </text>
