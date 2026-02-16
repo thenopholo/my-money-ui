@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { listAccounts } from "../services/accounts.service.ts";
-import { listCategories } from "../services/categories.service.ts";
+import { createCategory, listCategories } from "../services/categories.service.ts";
 import { listCreditCards } from "../services/credit-cards.service.ts";
 import {
   createTransaction,
   deleteTransaction,
   listAccountTransactions,
+  resetAllTransactions,
   updateTransaction,
 } from "../services/transactions.service.ts";
 import { importConfirm, importPreview } from "../services/import.service.ts";
-import type { CreateTransactionRequest, ImportConfirmRequest, UpdateTransactionRequest } from "../models/dtos.ts";
+import type { CreateCategoryRequest, CreateTransactionRequest, ImportConfirmRequest, UpdateTransactionRequest } from "../models/dtos.ts";
 import type {
   BankAccount,
   Category,
@@ -31,6 +32,8 @@ export function useTransactionsViewModel() {
   const [saving, setSaving] = useState(false);
   const [selectedAccountId, setSelectedAccountId] = useState("");
   const [filterType, setFilterType] = useState<"all" | "income" | "expense">("all");
+
+  const [resetting, setResetting] = useState(false);
 
   const [importStep, setImportStep] = useState<"idle" | "upload" | "preview" | "result">("idle");
   const [previewData, setPreviewData] = useState<ImportPreviewResponse | null>(null);
@@ -163,6 +166,31 @@ export function useTransactionsViewModel() {
     }
   }
 
+  async function handleCreateCategory(data: CreateCategoryRequest): Promise<Category> {
+    const newCategory = await createCategory(data);
+    setCategories((prev) => [...prev, newCategory]);
+    return newCategory;
+  }
+
+  async function handleResetAll() {
+    setResetting(true);
+    setError("");
+    try {
+      await resetAllTransactions();
+      const accts = await listAccounts();
+      setAccounts(accts);
+      await loadTransactions(accts);
+    } catch (err) {
+      if (err instanceof ApiRequestError) {
+        setError(err.message);
+      } else {
+        setError("Erro ao resetar transações.");
+      }
+    } finally {
+      setResetting(false);
+    }
+  }
+
   function resetImport() {
     setImportStep("idle");
     setPreviewData(null);
@@ -220,5 +248,8 @@ export function useTransactionsViewModel() {
     resetImport,
     totalIncome,
     totalExpense,
+    handleCreateCategory,
+    handleResetAll,
+    resetting,
   };
 }

@@ -1,10 +1,11 @@
 import { useState, useMemo } from "react";
 import { Loader2 } from "lucide-react";
 import type { Category, ImportPreviewResponse } from "../../models/entities.ts";
-import type { ImportConfirmRequest } from "../../models/dtos.ts";
+import type { CreateCategoryRequest, ImportConfirmRequest } from "../../models/dtos.ts";
 import type { CategoryType, TransactionType } from "../../models/enums.ts";
 import { formatCurrency } from "../../utils/currency.ts";
 import { formatDate } from "../../utils/date.ts";
+import { CategoryFormModal } from "./CategoryFormModal.tsx";
 
 interface EditableTransaction {
   selected: boolean;
@@ -30,6 +31,8 @@ interface ImportPreviewModalProps {
   categories: Category[];
   importing: boolean;
   error: string;
+  onCreateCategory: (data: CreateCategoryRequest) => Promise<Category>;
+  savingCategory: boolean;
 }
 
 function ConfidenceBadge({ confidence }: { confidence: number }) {
@@ -55,9 +58,13 @@ export function ImportPreviewModal({
   categories,
   importing,
   error,
+  onCreateCategory,
+  savingCategory,
 }: ImportPreviewModalProps) {
   const transactions = previewData.transactions ?? [];
   const suggestedCategories = previewData.new_categories_suggested ?? [];
+
+  const [creatingCategoryForIndex, setCreatingCategoryForIndex] = useState<number | null>(null);
 
   const [editableTxs, setEditableTxs] = useState<EditableTransaction[]>(() =>
     transactions.map((tx) => ({
@@ -84,6 +91,10 @@ export function ImportPreviewModal({
   };
 
   const handleCategoryChange = (index: number, value: string) => {
+    if (value === "create:new") {
+      setCreatingCategoryForIndex(index);
+      return;
+    }
     if (value.startsWith("new:")) {
       const suggestedName = value.slice(4);
       const suggested = suggestedCategories.find((s) => s.name === suggestedName);
@@ -101,6 +112,19 @@ export function ImportPreviewModal({
         suggested_category_type: null,
       });
     }
+  };
+
+  const handleCategoryCreated = async (data: CreateCategoryRequest) => {
+    const newCategory = await onCreateCategory(data);
+    if (creatingCategoryForIndex !== null) {
+      updateTx(creatingCategoryForIndex, {
+        useExistingCategory: true,
+        category_id: newCategory.ID,
+        suggested_category_name: null,
+        suggested_category_type: null,
+      });
+    }
+    setCreatingCategoryForIndex(null);
   };
 
   const getCategoryValue = (tx: EditableTransaction): string => {
@@ -243,6 +267,7 @@ export function ImportPreviewModal({
                             ))}
                           </optgroup>
                         )}
+                        <option value="create:new">+ Criar nova categoria</option>
                       </select>
                     </td>
                     <td className="py-2.5 pr-2">
@@ -287,6 +312,16 @@ export function ImportPreviewModal({
           </div>
         </div>
       </div>
+
+      {creatingCategoryForIndex !== null && (
+        <div className="fixed inset-0 z-[60]">
+          <CategoryFormModal
+            onClose={() => setCreatingCategoryForIndex(null)}
+            onSubmit={handleCategoryCreated}
+            saving={savingCategory}
+          />
+        </div>
+      )}
     </div>
   );
 }

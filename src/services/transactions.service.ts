@@ -44,3 +44,7 @@ export function createFromPlannedExpense(
 export function payInvoice(data: PayInvoiceRequest): Promise<Transaction> {
   return post<Transaction>("/api/transactions/pay-invoice", data);
 }
+
+export function resetAllTransactions(): Promise<void> {
+  return del("/api/transactions/reset");
+}

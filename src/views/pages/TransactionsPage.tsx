@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { ArrowLeftRight, FileUp, Loader2, Pencil, Plus, RefreshCw, Trash2 } from "lucide-react";
+import { AlertTriangle, ArrowLeftRight, FileUp, Loader2, Pencil, Plus, RefreshCw, Trash2 } from "lucide-react";
 import { useTransactionsViewModel } from "../../viewmodels/transactions.viewmodel.ts";
 import { TransactionFormModal } from "../components/TransactionFormModal.tsx";
 import { ImportCSVModal } from "../components/ImportCSVModal.tsx";
 import { ImportPreviewModal } from "../components/ImportPreviewModal.tsx";
 import { ImportResultModal } from "../components/ImportResultModal.tsx";
 import { ConfirmDeleteModal } from "../components/ConfirmDeleteModal.tsx";
+import { ResetTransactionsModal } from "../components/ResetTransactionsModal.tsx";
 import { formatCurrency } from "../../utils/currency.ts";
 import { formatDate } from "../../utils/date.ts";
 import type { Transaction } from "../../models/entities.ts";
@@ -17,6 +18,7 @@ export function TransactionsPage() {
   const [showFormModal, setShowFormModal] = useState(false);
   const [editingTransaction, setEditingTransaction] = useState<Transaction | undefined>();
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [showResetModal, setShowResetModal] = useState(false);
 
   const handleOpenCreate = () => {
     setEditingTransaction(undefined);
@@ -80,6 +82,13 @@ export function TransactionsPage() {
           >
             <FileUp className="h-4 w-4" />
             Importar CSV
+          </button>
+          <button
+            onClick={() => setShowResetModal(true)}
+            className="rounded-lg border border-danger/30 px-4 py-2 text-sm text-danger hover:bg-danger/10 transition-colors flex items-center gap-2"
+          >
+            <AlertTriangle className="h-4 w-4" />
+            Resetar Tudo
           </button>
         </div>
       </div>
@@ -269,6 +278,8 @@ export function TransactionsPage() {
           categories={vm.categories}
           importing={vm.importing}
           error={vm.importError}
+          onCreateCategory={vm.handleCreateCategory}
+          savingCategory={vm.saving}
         />
       )}
 
@@ -287,6 +298,16 @@ export function TransactionsPage() {
         title="Excluir Transação"
         message="Tem certeza que deseja excluir esta transação? O saldo da conta será revertido. Esta ação não pode ser desfeita."
         loading={vm.saving}
+      />
+
+      <ResetTransactionsModal
+        open={showResetModal}
+        onClose={() => setShowResetModal(false)}
+        onConfirm={async () => {
+          await vm.handleResetAll();
+          setShowResetModal(false);
+        }}
+        loading={vm.resetting}
       />
     </div>
   );

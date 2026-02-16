@@ -104,6 +104,7 @@ export interface CreateTransactionRequest {
 }
 
 export interface UpdateTransactionRequest {
+  category_id: string;
   amount: string;
   description: string;
   transaction_date: string;
@@ -132,6 +133,7 @@ export interface CreateCreditCardTransactionRequest {
 }
 
 export interface UpdateCreditCardTransactionRequest {
+  category_id: string;
   amount: string;
   description: string;
   installments: number;

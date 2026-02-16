@@ -68,7 +68,12 @@ export function TransactionFormModal({
 
     try {
       if (isEdit) {
+        if (!categoryId) {
+          setError("Selecione uma categoria.");
+          return;
+        }
         const data: UpdateTransactionRequest = {
+          category_id: categoryId,
           amount: amount,
           description: description.trim(),
           transaction_date: transactionDate + "T00:00:00Z",
@@ -157,7 +162,6 @@ export function TransactionFormModal({
               id="txCategory"
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
-              disabled={isEdit}
               className="w-full rounded-lg bg-[#050505] border border-white/10 px-4 py-2.5 text-sm text-text-primary focus:outline-none focus:border-white/20 disabled:opacity-50"
             >
               <option value="">Selecione uma categoria</option>
